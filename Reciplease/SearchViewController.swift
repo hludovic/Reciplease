@@ -79,6 +79,7 @@ class SearchViewController: UIViewController {
             }
             self.isLoading = false
             recipeListView.recipes = recipes
+            recipeListView.title = "Reciplease"
             self.navigationController?.pushViewController(recipeListView, animated: true)
         }
     }
