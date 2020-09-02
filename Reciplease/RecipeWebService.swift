@@ -10,14 +10,12 @@ import Foundation
 import Alamofire
 
 class RecipeWebService {
-    
-    
     static func fetchRecipes(keywords: [String], callback: @escaping (Recipes?) -> Void ) {
         
         let url = "https://api.edamam.com/search"
         // API KEY
-        let app_key = "_"
-        let app_id = "_"
+        let app_key = "e5c0ea6d3bb0773630cc5464ca3509f2"
+        let app_id = "45494003"
         // -------
         var q: String = ""
         
@@ -49,9 +47,9 @@ class RecipeWebService {
 
 struct result: Decodable {
     let count: Int
-    let hits: [hit]
+    let hits: [Hit]
 }
 
-struct hit: Decodable {
+struct Hit: Decodable {
     let recipe: Recipe
 }
