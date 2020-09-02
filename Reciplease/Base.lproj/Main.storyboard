@@ -178,14 +178,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krT-yi-Afo">
-                                                    <rect key="frame" x="20" y="60" width="45" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                                    <rect key="frame" x="20" y="70.5" width="34.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWv-7i-LF0">
-                                                    <rect key="frame" x="20" y="88" width="86" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="20" y="91" width="77" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -246,8 +246,8 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="XII-HH-CuY" secondAttribute="trailing" id="WpR-ta-aBU"/>
                                                 <constraint firstItem="VLp-Lg-Nj4" firstAttribute="leading" secondItem="DwB-DM-wgT" secondAttribute="leading" id="c87-Bc-3Zi"/>
                                                 <constraint firstItem="XII-HH-CuY" firstAttribute="top" secondItem="DwB-DM-wgT" secondAttribute="topMargin" id="cbc-8Y-sam"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="krT-yi-Afo" secondAttribute="trailing" constant="70" id="eJR-Hz-eK6"/>
                                                 <constraint firstItem="VLp-Lg-Nj4" firstAttribute="top" secondItem="DwB-DM-wgT" secondAttribute="top" id="fED-KS-BEM"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="krT-yi-Afo" secondAttribute="trailing" id="jsi-tc-71y"/>
                                                 <constraint firstItem="dWv-7i-LF0" firstAttribute="top" secondItem="krT-yi-Afo" secondAttribute="bottom" id="rcH-yc-jB9"/>
                                                 <constraint firstItem="dWv-7i-LF0" firstAttribute="bottom" secondItem="DwB-DM-wgT" secondAttribute="bottomMargin" id="v2b-06-70o"/>
                                                 <constraint firstItem="krT-yi-Afo" firstAttribute="leading" secondItem="DwB-DM-wgT" secondAttribute="leadingMargin" id="v5S-Kk-mMY"/>

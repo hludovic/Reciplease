@@ -98,9 +98,9 @@
 			children = (
 				438FF6BC24FC4BC2001F238B /* AppDelegate.swift */,
 				438FF6BE24FC4BC2001F238B /* SceneDelegate.swift */,
-				438FF6C024FC4BC2001F238B /* SearchViewController.swift */,
 				43879EE024FC72AC00DA5DC8 /* SettingService.swift */,
 				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
+				438FF6C024FC4BC2001F238B /* SearchViewController.swift */,
 				43879EE224FC80E400DA5DC8 /* RecipeListViewController.swift */,
 				43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */,
 				436062DF24FF3C4400852D2B /* Model */,

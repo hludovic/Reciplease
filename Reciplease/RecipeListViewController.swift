@@ -11,28 +11,11 @@ import Alamofire
 
 class RecipeListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
     var recipes: Recipes?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
-    
-    
-    func fetchRecipes(){
-        let keywords = ["chicken", "egg"]
-        RecipeWebService.fetchRecipes(keywords: keywords) { (recipes) in
-            guard let recipes = recipes else {
-                print("ERROR")
-                return
-            }
-            self.recipes = recipes
-            self.tableView.reloadData()
-        }
-    }
-    
 }
 
 extension RecipeListViewController: UITableViewDataSource {
@@ -45,6 +28,7 @@ extension RecipeListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
         guard let recipe = recipes?.all[indexPath.row] else { return RecipeTableViewCell() }
         cell.titleLabel.text = recipe.title
+        cell.imageUrl = recipe.image
         return cell
     }
     
