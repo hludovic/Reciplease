@@ -23,7 +23,7 @@ class RecipeTableViewCell: UITableViewCell {
         let view = UIView(frame: backgroundImage.frame)
         let gradient = CAGradientLayer()
         gradient.frame = view.frame
-        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradient.colors = [UIColor.clear.cgColor, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor]
         gradient.locations = [0.5, 1.0]
         view.layer.insertSublayer(gradient, at: 0)
         backgroundImage.addSubview(view)

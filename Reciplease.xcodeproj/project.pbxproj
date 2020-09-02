@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		436062DA24FEFEBC00852D2B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436062D924FEFEBC00852D2B /* Recipe.swift */; };
+		436062DC24FF045C00852D2B /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436062DB24FF045C00852D2B /* Recipes.swift */; };
+		436062DE24FF1A2A00852D2B /* RecipeWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436062DD24FF1A2A00852D2B /* RecipeWebService.swift */; };
 		43879EE124FC72AC00DA5DC8 /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43879EE024FC72AC00DA5DC8 /* SettingService.swift */; };
 		43879EE324FC80E400DA5DC8 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43879EE224FC80E400DA5DC8 /* RecipeListViewController.swift */; };
 		43879EE524FC85F600DA5DC8 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */; };
@@ -22,6 +25,9 @@
 
 /* Begin PBXFileReference section */
 		220C1861BEFF9087AB2A5095 /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
+		436062D924FEFEBC00852D2B /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		436062DB24FF045C00852D2B /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		436062DD24FF1A2A00852D2B /* RecipeWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeWebService.swift; sourceTree = "<group>"; };
 		43879EE024FC72AC00DA5DC8 /* SettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingService.swift; sourceTree = "<group>"; };
 		43879EE224FC80E400DA5DC8 /* RecipeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
@@ -56,8 +62,16 @@
 				D29F5587639DBCC978104BE1 /* Pods-Reciplease.debug.xcconfig */,
 				220C1861BEFF9087AB2A5095 /* Pods-Reciplease.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		436062DF24FF3C4400852D2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				436062D924FEFEBC00852D2B /* Recipe.swift */,
+				436062DB24FF045C00852D2B /* Recipes.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		438FF6B024FC4BC1001F238B = {
@@ -86,11 +100,13 @@
 				438FF6BE24FC4BC2001F238B /* SceneDelegate.swift */,
 				438FF6C024FC4BC2001F238B /* SearchViewController.swift */,
 				43879EE024FC72AC00DA5DC8 /* SettingService.swift */,
-				438FF6C224FC4BC2001F238B /* Main.storyboard */,
+				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
 				43879EE224FC80E400DA5DC8 /* RecipeListViewController.swift */,
 				43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */,
+				436062DF24FF3C4400852D2B /* Model */,
 				438FF6C824FC4BCB001F238B /* Assets.xcassets */,
 				438FF6CA24FC4BCB001F238B /* LaunchScreen.storyboard */,
+				438FF6C224FC4BC2001F238B /* Main.storyboard */,
 				438FF6CD24FC4BCB001F238B /* Info.plist */,
 				438FF6C524FC4BC2001F238B /* Reciplease.xcdatamodeld */,
 			);
@@ -227,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436062DE24FF1A2A00852D2B /* RecipeWebService.swift in Sources */,
 				438FF6C724FC4BC2001F238B /* Reciplease.xcdatamodeld in Sources */,
 				438FF6C124FC4BC2001F238B /* SearchViewController.swift in Sources */,
 				43879EE324FC80E400DA5DC8 /* RecipeListViewController.swift in Sources */,
@@ -234,6 +251,8 @@
 				438FF6BD24FC4BC2001F238B /* AppDelegate.swift in Sources */,
 				43879EE124FC72AC00DA5DC8 /* SettingService.swift in Sources */,
 				438FF6BF24FC4BC2001F238B /* SceneDelegate.swift in Sources */,
+				436062DC24FF045C00852D2B /* Recipes.swift in Sources */,
+				436062DA24FEFEBC00852D2B /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

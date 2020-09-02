@@ -101,14 +101,17 @@
                                 </state>
                                 <connections>
                                     <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JQh-M6-xHQ"/>
-                                    <segue destination="sHA-c9-IL5" kind="show" id="HV5-uc-4t7"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-Ih-IaR">
+                                <rect key="frame" x="188.5" y="747" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="#373332"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="u4Y-jQ-PKC" firstAttribute="centerY" secondItem="bFa-wo-pCa" secondAttribute="centerY" id="68y-hd-thX"/>
+                            <constraint firstItem="nMH-Ih-IaR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6is-1M-0IU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HX4-bm-02E" secondAttribute="trailing" id="AVn-qG-if8"/>
                             <constraint firstItem="HX4-bm-02E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AeU-9S-n6U"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cHp-40-mFY" secondAttribute="trailing" constant="30" id="Ek8-GM-4eo"/>
@@ -120,6 +123,7 @@
                             <constraint firstItem="ku3-Jd-9cD" firstAttribute="top" secondItem="u4Y-jQ-PKC" secondAttribute="bottom" constant="12" id="ZaC-Al-DBP"/>
                             <constraint firstItem="HX4-bm-02E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eNX-7a-kyi"/>
                             <constraint firstItem="bFa-wo-pCa" firstAttribute="top" secondItem="HX4-bm-02E" secondAttribute="bottom" constant="25" id="g15-UH-Umd"/>
+                            <constraint firstItem="nMH-Ih-IaR" firstAttribute="centerY" secondItem="cHp-40-mFY" secondAttribute="centerY" id="qOe-xr-OtX"/>
                             <constraint firstItem="ku3-Jd-9cD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sOk-Ys-Msb"/>
                             <constraint firstItem="ku3-Jd-9cD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="tMY-2y-mq0"/>
                             <constraint firstItem="bFa-wo-pCa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wfe-eN-9gK"/>
@@ -131,6 +135,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="j1J-gT-wW6"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="nMH-Ih-IaR" id="Gg4-uc-YEI"/>
                         <outlet property="addButton" destination="SgU-WC-bBe" id="0n5-ua-Zc1"/>
                         <outlet property="clearButton" destination="u4Y-jQ-PKC" id="fr4-MG-OXj"/>
                         <outlet property="ingredientTextField" destination="bsW-9v-xUn" id="ltx-Cg-47d"/>
@@ -156,7 +161,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RXV-4X-g4t">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" id="Upy-X0-Hdu" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
