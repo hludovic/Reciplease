@@ -1,27 +1,18 @@
 //
-//  Recipe.swift
+//  Favorite.swift
 //  Reciplease
 //
-//  Created by Ludovic HENRY on 01/09/2020.
+//  Created by Ludovic HENRY on 02/09/2020.
 //  Copyright © 2020 Ludovic HENRY. All rights reserved.
 //
 
 import Foundation
+import CoreData
 
-struct Recipe: Decodable {
-    let id: String
-    let title: String
-    let ingredients: [String]
-    let duration: Int
-    let image: String
-    let directions: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "uri"
-        case title = "label"
-        case ingredients = "ingredientLines"
-        case duration = "totalTime"
-        case image
-        case directions = "url"
+class Recipe: NSManagedObject {
+    static var all: [Recipe] {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        guard let result = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        return result
     }
 }

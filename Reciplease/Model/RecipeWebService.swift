@@ -10,14 +10,14 @@ import Foundation
 import Alamofire
 
 class RecipeWebService {
-    static func fetchRecipes(keywords: [String], callback: @escaping (Recipes?) -> Void ) {
+    static func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
         
         let url = "https://api.edamam.com/search"
         // API KEY
         let app_key = "_"
         let app_id = "_"
         // -------
-        var recipes: [Recipe] = []
+        var favorites: [Recipe] = []
         let q: String = keywords.joined(separator: ", ")        
         let parameters: [String: String] = [ "app_key": app_key, "app_id": app_id, "q": q ]
         AF.request(url, method: .get, parameters: parameters)
@@ -27,12 +27,18 @@ class RecipeWebService {
                     callback(nil)
                     return
                 }
-
                 for hit in result.hits {
-                    recipes.append(hit.recipe)
+                    let favorite = Recipe(context: AppDelegate.viewContext)
+                    favorite.directions = hit.recipe.directions
+                    favorite.duration = Int16(hit.recipe.duration)
+                    favorite.id = hit.recipe.id
+                    favorite.imageUrl = hit.recipe.image
+                    favorite.ingredients = "- " + hit.recipe.ingredients.joined(separator: "\n- ")
+                    favorite.query = SettingService.ingredients.joined(separator: ", ")
+                    favorite.title = hit.recipe.title
+                    favorites.append(favorite)
                 }
-
-                callback(Recipes.init(all: recipes))
+                callback(favorites)
         }
     }
 }
@@ -44,5 +50,23 @@ struct result: Decodable {
 }
 
 struct Hit: Decodable {
-    let recipe: Recipe
+    let recipe: RecipeResult
+}
+
+struct RecipeResult: Decodable {
+    let id: String
+    let title: String
+    let ingredients: [String]
+    let duration: Int
+    let image: String
+    let directions: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "uri"
+        case title = "label"
+        case ingredients = "ingredientLines"
+        case duration = "totalTime"
+        case image
+        case directions = "url"
+    }
 }

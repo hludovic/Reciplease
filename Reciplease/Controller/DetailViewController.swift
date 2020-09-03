@@ -27,7 +27,6 @@ class DetailViewController: UIViewController {
         }
     }
     var recipe: Recipe?
-    var imageData: Data?
     var favButton: UIBarButtonItem?
     
     override func viewDidLoad() {
@@ -47,16 +46,18 @@ class DetailViewController: UIViewController {
     }
     
     private func commonInit() {
-        guard let recipe = recipe else { return }
-        titleLabel.text = recipe.title
-        ingredientsTextView.text = "- " + recipe.ingredients.joined(separator: "\n- ")
-        downloadImage(url: recipe.image)
+        guard let title = recipe?.title, let ingredients = recipe?.ingredients,
+            let url = recipe?.imageUrl else { return }
+        titleLabel.text = title
+        ingredientsTextView.text = ingredients
+        downloadImage(url: url)
     }
         
     private func downloadImage(url: String) {
+        guard recipe?.imageData == nil else { return }
         AF.download(url).responseData { (response) in
             if let data = response.value {
-                self.imageData = data
+                self.recipe?.imageData = data
                 self.imageDetail.image = UIImage(data: data)
             }
         }
@@ -76,27 +77,10 @@ class DetailViewController: UIViewController {
     
     @objc func saveToFavorite() {
         if !isFavorite {
-//            guard let recipe = recipe, let imageData = imageData else { return }
-//            let favorite = Favorite(context: AppDelegate.viewContext)
-//            favorite.directions = recipe.directions
-//            favorite.duration = Int16(recipe.duration)
-//            favorite.id = recipe.id
-//            favorite.imageData = imageData
-//            favorite.imageUrl = recipe.image
-//            favorite.ingredients = recipe.ingredients
-//            favorite.title = recipe.title
-//
-//            do {
-            //            try AppDelegate.viewContext.save()
-                        isFavorite = true
-//                        print("Saved")
-//                    } catch {
-//                        print("ERROR")
-//                    }
+            isFavorite = true
         } else {
             isFavorite = false
         }
-        
     }
     
 }

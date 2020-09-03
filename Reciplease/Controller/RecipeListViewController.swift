@@ -11,7 +11,7 @@ import Alamofire
 
 class RecipeListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var recipes: Recipes?
+    var recipes: [Recipe] = []
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,32 +19,38 @@ class RecipeListViewController: UIViewController {
 
 extension RecipeListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = recipes?.all.count else { return 0 }
-        return count
+        return recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
-        guard let recipe = recipes?.all[indexPath.row] else { return RecipeTableViewCell() }
-        cell.titleLabel?.text = recipe.title
-        cell.ingredientsLabel.text = SettingService.ingredients.joined(separator: ", ")
+        fillACell(cell: cell, indexPath: indexPath)
+        return cell
+    }
+    
+    private func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
+        let data = recipes[indexPath.row]
+        guard let titleLabel = data.title, let ingredients = data.query, let url = data.imageUrl else { return }
+        
+        cell.titleLabel?.text = titleLabel
+        cell.ingredientsLabel.text = ingredients
         
         let placeholderImage = UIImage(named: "placeholder")
-        cell.backgroundImage?.image = placeholderImage
-        AF.download(recipe.image).responseData { (response) in
+        cell.backgroundImage.image = placeholderImage
+        
+        AF.download(url).responseData { (response) in
             guard let data = response.value else { return }
-            if let updateCell = tableView.cellForRow(at: indexPath) as? RecipeTableViewCell {
+            if let updateCell = self.tableView.cellForRow(at: indexPath) as? RecipeTableViewCell {
                 updateCell.backgroundImage?.image = UIImage(data: data)
             }
         }
-        return cell
     }
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToDetail" {
             let destination = segue.destination as! DetailViewController
-            guard let recipe = recipes?.all[tableView.indexPathForSelectedRow!.row] else { return }
+            let recipe = recipes[tableView.indexPathForSelectedRow!.row]
             destination.recipe = recipe
         }
     }

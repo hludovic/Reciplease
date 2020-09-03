@@ -88,7 +88,7 @@ class SearchViewController: UIViewController {
         ingredientTextField.resignFirstResponder()
     }
     
-    func fetchRecipes(callback: @escaping (Recipes?) -> Void) {
+    func fetchRecipes(callback: @escaping ([Recipe]?) -> Void) {
         if SettingService.ingredients.count != 0 {
             RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
                 guard let recipes = recipes else {
