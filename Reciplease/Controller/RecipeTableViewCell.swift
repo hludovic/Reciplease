@@ -14,11 +14,11 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
     @IBOutlet weak var infosView: UIView!
-    var imageUrl: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()        
         infosView.layer.cornerRadius = 4
+        gradientBackground()
     }
     
     func gradientBackground() {
@@ -31,24 +31,5 @@ class RecipeTableViewCell: UITableViewCell {
         backgroundImage.addSubview(view)
         backgroundImage.bringSubviewToFront(view)
     }
-    
-    private func downloadImage(url: String) {
-        AF.download(url).responseData { (response) in
-            if let data = response.value {
-                self.backgroundImage.image = UIImage(data: data)
-                self.gradientBackground()
-            }
-        }
-    }
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        if superview != nil {
-            downloadImage(url: imageUrl!)
-            if let imageUrl = imageUrl {
-                downloadImage(url: imageUrl)
-            }
-        }
-    }
-    
+
 }

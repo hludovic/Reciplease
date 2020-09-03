@@ -72,13 +72,32 @@
 		4302708D2500488300A63AB1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
 				438FF6C024FC4BC2001F238B /* SearchViewController.swift */,
 				43879EE224FC80E400DA5DC8 /* RecipeListViewController.swift */,
-				4302708E250049D000A63AB1 /* DetailViewController.swift */,
 				43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */,
+				4302708E250049D000A63AB1 /* DetailViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		4359A9CC250085E70012721A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				438FF6C224FC4BC2001F238B /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4359A9CD2500863B0012721A /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				438FF6C824FC4BCB001F238B /* Assets.xcassets */,
+				438FF6BC24FC4BC2001F238B /* AppDelegate.swift */,
+				438FF6BE24FC4BC2001F238B /* SceneDelegate.swift */,
+				438FF6CA24FC4BCB001F238B /* LaunchScreen.storyboard */,
+				438FF6CD24FC4BCB001F238B /* Info.plist */,
+			);
+			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 		436062DF24FF3C4400852D2B /* Model */ = {
@@ -86,7 +105,9 @@
 			children = (
 				436062D924FEFEBC00852D2B /* Recipe.swift */,
 				436062DB24FF045C00852D2B /* Recipes.swift */,
+				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
 				4302708B2500408C00A63AB1 /* Favorite.swift */,
+				43879EE024FC72AC00DA5DC8 /* SettingService.swift */,
 				438FF6C524FC4BC2001F238B /* Reciplease.xcdatamodeld */,
 			);
 			path = Model;
@@ -114,15 +135,10 @@
 		438FF6BB24FC4BC2001F238B /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
-				438FF6BC24FC4BC2001F238B /* AppDelegate.swift */,
-				438FF6BE24FC4BC2001F238B /* SceneDelegate.swift */,
-				43879EE024FC72AC00DA5DC8 /* SettingService.swift */,
 				4302708D2500488300A63AB1 /* Controller */,
 				436062DF24FF3C4400852D2B /* Model */,
-				438FF6C824FC4BCB001F238B /* Assets.xcassets */,
-				438FF6CA24FC4BCB001F238B /* LaunchScreen.storyboard */,
-				438FF6C224FC4BC2001F238B /* Main.storyboard */,
-				438FF6CD24FC4BCB001F238B /* Info.plist */,
+				4359A9CC250085E70012721A /* View */,
+				4359A9CD2500863B0012721A /* Supporting files */,
 			);
 			path = Reciplease;
 			sourceTree = "<group>";
@@ -415,7 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W8A2PVHCN3;
-				INFOPLIST_FILE = Reciplease/Info.plist;
+				INFOPLIST_FILE = "Reciplease/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,7 +450,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W8A2PVHCN3;
-				INFOPLIST_FILE = Reciplease/Info.plist;
+				INFOPLIST_FILE = "Reciplease/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

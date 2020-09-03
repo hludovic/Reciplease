@@ -258,7 +258,7 @@
                                             <outlet property="infosView" destination="XII-HH-CuY" id="f6c-Zg-oHO"/>
                                             <outlet property="ingredientsLabel" destination="dWv-7i-LF0" id="iKF-mx-5sc"/>
                                             <outlet property="titleLabel" destination="krT-yi-Afo" id="mqj-1O-743"/>
-                                            <segue destination="4h7-vz-wFf" kind="show" id="qd6-pr-Pep"/>
+                                            <segue destination="4h7-vz-wFf" kind="show" identifier="segueToDetail" id="qd6-pr-Pep"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -294,14 +294,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="S76-vr-k7n">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="276"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="S76-vr-k7n">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="270"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="S76-vr-k7n" secondAttribute="height" multiplier="15:10" id="ytQ-wR-Sep"/>
+                                    <constraint firstAttribute="height" constant="270" id="zHc-28-WuJ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pls-Dg-8zi">
-                                <rect key="frame" x="171.5" y="236" width="71" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pls-Dg-8zi">
+                                <rect key="frame" x="0.0" y="230" width="414" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -321,7 +321,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFT-xt-Y6z">
-                                <rect key="frame" x="20" y="332" width="364" height="381"/>
+                                <rect key="frame" x="20" y="326" width="364" height="387"/>
                                 <color key="backgroundColor" name="#373332"/>
                                 <string key="text">- Apple
 - Tomatoes
@@ -332,7 +332,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgS-nL-snl">
-                                <rect key="frame" x="20" y="296" width="374" height="28"/>
+                                <rect key="frame" x="20" y="290" width="374" height="28"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -395,7 +395,6 @@
                             <constraint firstItem="kFT-xt-Y6z" firstAttribute="top" secondItem="YgS-nL-snl" secondAttribute="bottom" constant="8" id="DpB-tL-ti4"/>
                             <constraint firstItem="hpP-Py-RfB" firstAttribute="trailing" secondItem="oF0-qR-mpo" secondAttribute="trailing" constant="20" id="FBs-F0-D3m"/>
                             <constraint firstItem="hpP-Py-RfB" firstAttribute="bottom" secondItem="g93-HR-HiW" secondAttribute="bottom" constant="20" id="JJN-uc-0Ig"/>
-                            <constraint firstItem="pls-Dg-8zi" firstAttribute="centerX" secondItem="lpS-Ob-B0c" secondAttribute="centerX" id="Tn8-Nq-4cS"/>
                             <constraint firstItem="g93-HR-HiW" firstAttribute="leading" secondItem="hpP-Py-RfB" secondAttribute="leading" constant="30" id="bzd-T4-dHI"/>
                             <constraint firstItem="S76-vr-k7n" firstAttribute="leading" secondItem="hpP-Py-RfB" secondAttribute="leading" id="h2w-SL-C3n"/>
                             <constraint firstItem="hpP-Py-RfB" firstAttribute="trailing" secondItem="kFT-xt-Y6z" secondAttribute="trailing" constant="30" id="hjP-hQ-I7W"/>
@@ -405,12 +404,16 @@
                             <constraint firstItem="S76-vr-k7n" firstAttribute="top" secondItem="hpP-Py-RfB" secondAttribute="top" id="jG9-Pq-oLx"/>
                             <constraint firstItem="kFT-xt-Y6z" firstAttribute="leading" secondItem="hpP-Py-RfB" secondAttribute="leading" constant="20" id="jzA-30-3OF"/>
                             <constraint firstItem="YgS-nL-snl" firstAttribute="top" secondItem="S76-vr-k7n" secondAttribute="bottom" constant="20" id="mG1-R5-cg2"/>
+                            <constraint firstItem="hpP-Py-RfB" firstAttribute="trailing" secondItem="pls-Dg-8zi" secondAttribute="trailing" id="oBQ-Iq-fsp"/>
+                            <constraint firstItem="pls-Dg-8zi" firstAttribute="leading" secondItem="hpP-Py-RfB" secondAttribute="leading" id="vPD-IR-tFy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hpP-Py-RfB"/>
                     </view>
                     <navigationItem key="navigationItem" id="xd6-HZ-ecv"/>
                     <connections>
+                        <outlet property="goButton" destination="g93-HR-HiW" id="kHC-cm-xms"/>
                         <outlet property="imageDetail" destination="S76-vr-k7n" id="ftv-NT-hng"/>
+                        <outlet property="infoView" destination="oF0-qR-mpo" id="xp9-Of-xQe"/>
                         <outlet property="ingredientsTextView" destination="kFT-xt-Y6z" id="H70-dM-IBU"/>
                         <outlet property="titleLabel" destination="pls-Dg-8zi" id="lnq-KH-80i"/>
                     </connections>

@@ -14,18 +14,11 @@ class RecipeWebService {
         
         let url = "https://api.edamam.com/search"
         // API KEY
-        let app_key = "e5c0ea6d3bb0773630cc5464ca3509f2"
-        let app_id = "45494003"
+        let app_key = "_"
+        let app_id = "_"
         // -------
-        var q: String = ""
-        
         var recipes: [Recipe] = []
-        
-        for keyword in keywords {
-            q += "\(keyword),"
-        }
-        q = String(q.dropLast())
-        
+        let q: String = keywords.joined(separator: ", ")        
         let parameters: [String: String] = [ "app_key": app_key, "app_id": app_id, "q": q ]
         AF.request(url, method: .get, parameters: parameters)
             .validate()
