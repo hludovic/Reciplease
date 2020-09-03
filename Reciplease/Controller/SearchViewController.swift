@@ -69,11 +69,11 @@ class SearchViewController: UIViewController {
     
     @IBAction func search(_ sender: UIButton) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as! RecipeListViewController
+        let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as! RecipeTableViewController
         isLoading = true
         fetchRecipes { (recipes) in
             guard let recipes = recipes else {
-                print("ERROR")
+                print("ERROR -4")
                 self.isLoading = false
                 return
             }
@@ -92,14 +92,14 @@ class SearchViewController: UIViewController {
         if SettingService.ingredients.count != 0 {
             RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
                 guard let recipes = recipes else {
-                    print("ERROR")
+                    print("ERROR - 5")
                     callback(nil)
                     return
                 }
                 callback(recipes)
             }
         } else {
-            print("ERROR")
+            print("ERROR - 6")
             callback(nil)
             return
         }

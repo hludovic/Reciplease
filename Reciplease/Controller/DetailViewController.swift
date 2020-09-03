@@ -36,7 +36,6 @@ class DetailViewController: UIViewController {
         commonInit()
         goButton.layer.cornerRadius = 3
         infoView.layer.cornerRadius = 3
-        gradientBackground()
     }
     
     private func addFavoriteButton() {
@@ -46,22 +45,19 @@ class DetailViewController: UIViewController {
     }
     
     private func commonInit() {
-        guard let title = recipe?.title, let ingredients = recipe?.ingredients,
-            let url = recipe?.imageUrl else { return }
-        titleLabel.text = title
-        ingredientsTextView.text = ingredients
-        downloadImage(url: url)
-    }
-        
-    private func downloadImage(url: String) {
-        guard recipe?.imageData == nil else { return }
-        AF.download(url).responseData { (response) in
-            if let data = response.value {
-                self.recipe?.imageData = data
-                self.imageDetail.image = UIImage(data: data)
-            }
+        guard let recipe = recipe else { return }
+        titleLabel.text = recipe.title
+        ingredientsTextView.text = recipe.ingredients
+        if let imageData = recipe.imageData {
+            imageDetail.image = UIImage(data: imageData)
+            gradientBackground()
+            
+        } else {
+            imageDetail.image = UIImage(named: "placeholder")
+            gradientBackground()
         }
     }
+        
 
     func gradientBackground() {
         let view = UIView(frame: imageDetail.frame)
@@ -77,6 +73,14 @@ class DetailViewController: UIViewController {
     
     @objc func saveToFavorite() {
         if !isFavorite {
+            do {
+                let favorite = Favorite(context: AppDelegate.viewContext)
+                favorite.addRecipe(recipe: recipe!)
+                try AppDelegate.viewContext.save()
+                print("SAVED")
+            } catch {
+                print("PAS SAUVEGARD2")
+            }
             isFavorite = true
         } else {
             isFavorite = false
