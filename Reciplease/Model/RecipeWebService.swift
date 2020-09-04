@@ -14,8 +14,8 @@ class RecipeWebService {
         
         let url = "https://api.edamam.com/search"
         // API KEY
-        let app_key = "-"
-        let app_id = "-"
+        let app_key = "_"
+        let app_id = "_"
         // -------
         var recipes: [Recipe] = []
         let q: String = keywords.joined(separator: ", ")        

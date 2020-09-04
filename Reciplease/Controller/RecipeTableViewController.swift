@@ -10,24 +10,46 @@ import UIKit
 import Alamofire
 
 class RecipeTableViewController: UIViewController {
+    enum Mode { case search, favorite }
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl = UIRefreshControl()
     var recipes: [Recipe] = []
+    var mode: Mode = .search
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if tabBarController?.selectedViewController?.tabBarItem.tag == 1 {
+            mode = .favorite
+        }
+        commonInit()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if tabBarController?.selectedViewController?.tabBarItem.tag == 1 {
+    func commonInit() {
+        switch mode {
+        case .favorite:
             title = "Favorite"
-            for favorite in  Favorite.all {
-                let recipe = Recipe(favorite: favorite)
-                recipes.append(recipe)
-            }
+            addRefreshControl()
+            recipes = Favorite.allRecipes
+        case .search:
+            title = "Reciplease"
         }
     }
+    
+    private func addRefreshControl() {
+        guard mode == .favorite else { return }
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadFavoriteDatas), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func reloadFavoriteDatas() {
+        recipes = Favorite.allRecipes
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
 }
+
 
 extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,10 +62,22 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard mode == .favorite else { return }
+        if editingStyle == .delete {
+            let favorite = Favorite.all[indexPath.row]
+            AppDelegate.viewContext.delete(favorite)
+            recipes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            try? AppDelegate.viewContext.save()
+            print("delete")
+        }
+    }
+    
     private func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title
-        cell.ingredientsLabel.text = recipe.ingredients
+        cell.ingredientsLabel.text = recipe.query
         
         let placeholderImage = UIImage(named: "placeholder")
         cell.backgroundImage.image = placeholderImage

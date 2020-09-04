@@ -18,18 +18,6 @@ class RecipeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()        
         infosView.layer.cornerRadius = 4
-        gradientBackground()
-    }
-    
-    func gradientBackground() {
-        let view = UIView(frame: backgroundImage.frame)
-        let gradient = CAGradientLayer()
-        gradient.frame = view.frame
-        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-        gradient.locations = [0.6, 1.0]
-        view.layer.insertSublayer(gradient, at: 0)
-        backgroundImage.addSubview(view)
-        backgroundImage.bringSubviewToFront(view)
     }
 
 }

@@ -15,7 +15,30 @@ class Favorite: NSManagedObject {
         guard let result = try? AppDelegate.viewContext.fetch(request) else { return [] }
         return result
     }
-        
+    
+    static var allRecipes: [Recipe] {
+        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        guard let favorites = try? AppDelegate.viewContext.fetch(request) else { return [] }
+
+        var recipes: [Recipe] = []
+        for favorite in favorites {
+            let recipe = Recipe(favorite: favorite)
+            recipes.append(recipe)
+        }
+        return recipes
+    }
+    
+    static func isFavorite(recipe: Recipe) -> Bool {
+        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", recipe.id)
+        guard let response = try? AppDelegate.viewContext.fetch(request) else { return false }
+        if response.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func addRecipe(recipe: Recipe) {
         self.directions = recipe.directions
         self.duration = Int16(recipe.duration)
@@ -26,7 +49,5 @@ class Favorite: NSManagedObject {
         self.query = recipe.query
         self.title = recipe.title
     }
-    
-    
     
 }
