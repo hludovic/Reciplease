@@ -37,23 +37,6 @@ class RecipeWebService {
                 callback(recipes)
         }
     }
-
-    static func loadImage(url: String, callback: @escaping (UIImage) -> Void) {
-        let cache = NSCache<NSString, UIImage>()
-        if let cachedImage: UIImage = cache.object(forKey: url as NSString) {
-            callback(cachedImage)
-        } else {
-            AF.download(url).responseData { (response) in
-                guard let data = response.value, let image = UIImage(data: data)  else {
-                    callback(UIImage(named: "placeholder")!)
-                    return
-                }
-                cache.setObject(image, forKey: NSString(string: url))
-                callback(image)
-            }
-        }
-    }
-
 }
 
 struct result: Decodable {

@@ -17,7 +17,6 @@ class Recipe {
     let ingredients: String
     let query: String
     let title: String
-    let isFavorite: Bool
     
     init(result: RecipeResult) {
         self.directions = result.directions
@@ -27,7 +26,6 @@ class Recipe {
         self.ingredients = result.ingredients.joined(separator: "\n- ")
         self.query = SettingService.ingredients.joined(separator: ", ")
         self.title = result.title
-        self.isFavorite = false
     }
     
     init(favorite: Favorite) {
@@ -38,7 +36,6 @@ class Recipe {
         self.ingredients = favorite.ingredients!
         self.query = favorite.query!
         self.title = favorite.title!
-        self.isFavorite = true
         self.imageData = favorite.imageData
     }
     

@@ -13,11 +13,9 @@ class RecipeTableViewController: UIViewController {
     enum Mode { case search, favorite }
     let cache = NSCache<NSString,UIImage>()
     @IBOutlet weak var tableView: UITableView!
-    var refreshControl = UIRefreshControl()
     var recipes: [Recipe] = []
     var mode: Mode = .search
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if tabBarController?.selectedViewController?.tabBarItem.tag == 1 {
@@ -25,29 +23,24 @@ class RecipeTableViewController: UIViewController {
         }
         commonInit()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if mode == .favorite {
+            recipes = Favorite.allRecipes
+            tableView.reloadData()
+        }
+    }
+
     func commonInit() {
         switch mode {
         case .favorite:
             title = "Favorite"
-            addRefreshControl()
             recipes = Favorite.allRecipes
+            tableView.reloadData()
         case .search:
             title = "Reciplease"
         }
-    }
-    
-    private func addRefreshControl() {
-        guard mode == .favorite else { return }
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(reloadFavoriteDatas), for: .valueChanged)
-        tableView.addSubview(refreshControl)
-    }
-    
-    @objc func reloadFavoriteDatas() {
-        recipes = Favorite.allRecipes
-        tableView.reloadData()
-        refreshControl.endRefreshing()
     }
 }
 
@@ -55,13 +48,13 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
         fillACell(cell: cell, indexPath: indexPath)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard mode == .favorite else { return }
         if editingStyle == .delete {
@@ -73,7 +66,7 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
             print("delete")
         }
     }
-    
+
     private func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title
@@ -82,9 +75,24 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
         cell.timeLabel.text = "\(recipe.duration)m"
         
         cell.backgroundImage.image = UIImage(named: "placeholder")
-        RecipeWebService.loadImage(url: recipe.imageUrl) { (image) in
+        loadImage(url: recipe.imageUrl) { (image) in
             cell.backgroundImage.image = image
             recipe.setImageData(data: image.pngData())
+        }
+    }
+
+    func loadImage(url: String, callback: @escaping (UIImage) -> Void) {
+        if let cachedImage: UIImage = cache.object(forKey: url as NSString) {
+            callback(cachedImage)
+        } else {
+            AF.download(url).responseData { (response) in
+                guard let data = response.value, let image = UIImage(data: data)  else {
+                    callback(UIImage(named: "placeholder")!)
+                    return
+                }
+                self.cache.setObject(image, forKey: NSString(string: url))
+                callback(image)
+            }
         }
     }
 

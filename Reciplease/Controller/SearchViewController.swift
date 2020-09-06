@@ -96,7 +96,6 @@ class SearchViewController: UIViewController {
     @IBAction func hideKeyboard(_ sender: Any) {
         ingredientTextField.resignFirstResponder()
     }
-    
 }
 
 extension SearchViewController: UITextFieldDelegate {
