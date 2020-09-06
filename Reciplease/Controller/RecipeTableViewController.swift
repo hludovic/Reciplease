@@ -80,25 +80,17 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
         cell.ingredientsLabel.text = recipe.query
         cell.likesLabel.text = "_ _ _"
         cell.timeLabel.text = "\(recipe.duration)m"
-        
         cell.backgroundImage.image = UIImage(named: "placeholder")
-        loadImage(url: recipe.imageUrl) { (image) in
-            cell.backgroundImage.image = image
-            recipe.setImageData(data: image.pngData())
-        }
-    }
-
-    func loadImage(url: String, callback: @escaping (UIImage) -> Void) {
-        if let cachedImage: UIImage = cache.object(forKey: url as NSString) {
-            callback(cachedImage)
+        if let cachedImage: UIImage = cache.object(forKey: recipe.imageUrl as NSString) {
+            cell.backgroundImage.image = cachedImage
         } else {
-            AF.download(url).responseData { (response) in
+            AF.download(recipe.imageUrl).responseData { (response) in
                 guard let data = response.value, let image = UIImage(data: data)  else {
-                    callback(UIImage(named: "placeholder")!)
                     return
                 }
-                self.cache.setObject(image, forKey: NSString(string: url))
-                callback(image)
+                self.cache.setObject(image, forKey: NSString(string: recipe.imageUrl))
+                cell.backgroundImage.image = image
+                recipe.setImageData(data: image.pngData())
             }
         }
     }
