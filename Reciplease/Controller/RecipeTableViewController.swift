@@ -63,7 +63,14 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
             recipes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             try? AppDelegate.viewContext.save()
-            print("delete")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if mode == .favorite {
+            return true
+        } else {
+            return false
         }
     }
 

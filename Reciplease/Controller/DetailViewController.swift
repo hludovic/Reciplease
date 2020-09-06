@@ -24,9 +24,11 @@ class DetailViewController: UIViewController {
             if isFavorite {
                 let imageButton = UIImage(systemName: "star.fill")
                 favButton?.image = imageButton
+                favButton?.tintColor = #colorLiteral(red: 0.2666666667, green: 0.5803921569, blue: 0.3647058824, alpha: 1)
             } else {
                 let imageButton = UIImage(systemName: "star")
                 favButton?.image = imageButton
+                favButton?.tintColor = UIColor.white
             }
         }
     }
@@ -93,6 +95,13 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @IBAction func pressDirectionsButton(_ sender: UIButton) {
+        guard let urlString = recipe?.directions, let url = URL(string: urlString) else {
+            print("ERROR")
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     private func displayAlert(message: String) {
         let alert = UIAlertController(title: "Error !", message: message, preferredStyle: .alert)
         present(alert, animated: true, completion: nil)

@@ -343,6 +343,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="pressDirectionsButton:" destination="4h7-vz-wFf" eventType="touchUpInside" id="dZg-Zy-CII"/>
                                     <action selector="pressSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4LV-n8-Njt"/>
                                 </connections>
                             </button>
