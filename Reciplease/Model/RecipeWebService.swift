@@ -11,7 +11,10 @@ import Alamofire
 
 class RecipeWebService {
     static func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
-        
+        guard keywords.count > 0 else {
+            callback(nil)
+            return
+        }
         let url = "https://api.edamam.com/search"
         // API KEY
         let app_key = "_"
@@ -34,8 +37,24 @@ class RecipeWebService {
                 callback(recipes)
         }
     }
-}
 
+    static func loadImage(url: String, callback: @escaping (UIImage) -> Void) {
+        let cache = NSCache<NSString, UIImage>()
+        if let cachedImage: UIImage = cache.object(forKey: url as NSString) {
+            callback(cachedImage)
+        } else {
+            AF.download(url).responseData { (response) in
+                guard let data = response.value, let image = UIImage(data: data)  else {
+                    callback(UIImage(named: "placeholder")!)
+                    return
+                }
+                cache.setObject(image, forKey: NSString(string: url))
+                callback(image)
+            }
+        }
+    }
+
+}
 
 struct result: Decodable {
     let count: Int

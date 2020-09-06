@@ -43,7 +43,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="add:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wZb-Yh-OXG"/>
+                                            <action selector="pressAddButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wZb-Yh-OXG"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -80,7 +80,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="clear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wdb-XQ-e9Q"/>
+                                    <action selector="pressClearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wdb-XQ-e9Q"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your ingredients :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFa-wo-pCa">
@@ -100,7 +100,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JQh-M6-xHQ"/>
+                                    <action selector="pressSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JQh-M6-xHQ"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-Ih-IaR">
@@ -181,7 +181,7 @@
                                                     <rect key="frame" x="324" y="11" width="70" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="245" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmP-8U-IaN">
-                                                            <rect key="frame" x="5" y="5" width="31" height="21"/>
+                                                            <rect key="frame" x="5" y="5" width="43" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -194,8 +194,8 @@
                                                                 <constraint firstAttribute="height" constant="16" id="O3R-Wg-yBQ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeI-Bb-p6a">
-                                                            <rect key="frame" x="5" y="34" width="35" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="777m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeI-Bb-p6a">
+                                                            <rect key="frame" x="5" y="34" width="43" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -211,12 +211,12 @@
                                                     </subviews>
                                                     <color key="backgroundColor" name="#373332"/>
                                                     <constraints>
-                                                        <constraint firstItem="Ynb-tk-ReT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BmP-8U-IaN" secondAttribute="trailing" constant="8" symbolic="YES" id="5MW-Vm-jJd"/>
-                                                        <constraint firstItem="mme-do-ptq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EeI-Bb-p6a" secondAttribute="trailing" constant="8" symbolic="YES" id="LSv-qC-K8E"/>
+                                                        <constraint firstItem="Ynb-tk-ReT" firstAttribute="leading" secondItem="BmP-8U-IaN" secondAttribute="trailing" constant="1" id="6t2-5u-sFM"/>
                                                         <constraint firstAttribute="width" constant="70" id="UGn-o0-bPU"/>
                                                         <constraint firstAttribute="trailing" secondItem="mme-do-ptq" secondAttribute="trailing" constant="5" id="Xoa-Db-CZu"/>
                                                         <constraint firstItem="EeI-Bb-p6a" firstAttribute="leading" secondItem="XII-HH-CuY" secondAttribute="leading" constant="5" id="fVM-DW-qyF"/>
                                                         <constraint firstItem="BmP-8U-IaN" firstAttribute="top" secondItem="XII-HH-CuY" secondAttribute="top" constant="5" id="l6n-8y-mnu"/>
+                                                        <constraint firstItem="mme-do-ptq" firstAttribute="leading" secondItem="EeI-Bb-p6a" secondAttribute="trailing" constant="1" id="m4x-ES-UdR"/>
                                                         <constraint firstAttribute="bottom" secondItem="EeI-Bb-p6a" secondAttribute="bottom" constant="5" id="nDh-Lw-Yuo"/>
                                                         <constraint firstItem="mme-do-ptq" firstAttribute="firstBaseline" secondItem="EeI-Bb-p6a" secondAttribute="firstBaseline" id="ocm-Ao-aGB"/>
                                                         <constraint firstItem="BmP-8U-IaN" firstAttribute="leading" secondItem="XII-HH-CuY" secondAttribute="leading" constant="5" id="q1u-gD-wh3"/>
@@ -269,6 +269,8 @@
                                             <outlet property="backgroundImage" destination="VLp-Lg-Nj4" id="xQl-rX-ltq"/>
                                             <outlet property="infosView" destination="XII-HH-CuY" id="f6c-Zg-oHO"/>
                                             <outlet property="ingredientsLabel" destination="dWv-7i-LF0" id="iKF-mx-5sc"/>
+                                            <outlet property="likesLabel" destination="BmP-8U-IaN" id="V31-TI-eC3"/>
+                                            <outlet property="timeLabel" destination="EeI-Bb-p6a" id="41z-bP-kGI"/>
                                             <outlet property="titleLabel" destination="krT-yi-Afo" id="mqj-1O-743"/>
                                             <segue destination="4h7-vz-wFf" kind="show" identifier="segueToDetail" id="qd6-pr-Pep"/>
                                         </connections>
@@ -341,7 +343,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4LV-n8-Njt"/>
+                                    <action selector="pressSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4LV-n8-Njt"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFT-xt-Y6z">
@@ -439,6 +441,8 @@
                         <outlet property="imageDetail" destination="PDR-wU-1aM" id="U7D-wW-GpQ"/>
                         <outlet property="infoView" destination="oF0-qR-mpo" id="xp9-Of-xQe"/>
                         <outlet property="ingredientsTextView" destination="kFT-xt-Y6z" id="H70-dM-IBU"/>
+                        <outlet property="likesLabel" destination="bIf-Ch-2az" id="u2J-XF-4rd"/>
+                        <outlet property="timeLabel" destination="HvD-UW-a0a" id="UxB-RX-ize"/>
                         <outlet property="titleLabel" destination="pls-Dg-8zi" id="lnq-KH-80i"/>
                     </connections>
                 </viewController>

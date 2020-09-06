@@ -39,7 +39,7 @@ class Favorite: NSManagedObject {
         }
     }
     
-    func addRecipe(recipe: Recipe) {
+    func newRecipe(recipe: Recipe) {
         self.directions = recipe.directions
         self.duration = Int16(recipe.duration)
         self.id = recipe.id
@@ -48,6 +48,15 @@ class Favorite: NSManagedObject {
         self.ingredients = recipe.ingredients
         self.query = recipe.query
         self.title = recipe.title
+    }
+    
+    static func removeRecipe(recipe: Recipe) -> Bool {
+        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", recipe.id)
+        guard let favoriteResult = try? AppDelegate.viewContext.fetch(request), favoriteResult.count > 0 else { return false}
+        let favorite = favoriteResult[0]
+        AppDelegate.viewContext.delete(favorite)
+        return true
     }
     
 }

@@ -48,8 +48,15 @@ class SearchViewController: UIViewController {
         }
     }
     
+    private func displayError(message: String) {
+        let alert = UIAlertController(title: "Error !", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func addIngredient() {
         guard let ingredient = ingredientTextField.text, ingredient != "" else {
+            displayError(message: "You must enter an ingredient before adding it to the list.")
             return
         }
         SettingService.ingredients.append(ingredient)
@@ -57,27 +64,30 @@ class SearchViewController: UIViewController {
         refreshIngredientsList()
     }
 
-    @IBAction func add(_ sender: UIButton) {
+    @IBAction func pressAddButton(_ sender: UIButton) {
         addIngredient()
         ingredientTextField.resignFirstResponder()
     }
     
-    @IBAction func clear(_ sender: UIButton) {
+    @IBAction func pressClearButton(_ sender: UIButton) {
         SettingService.ingredients = []
         refreshIngredientsList()
     }
     
-    @IBAction func search(_ sender: UIButton) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as! RecipeTableViewController
+    @IBAction func pressSearchButton(_ sender: UIButton) {
         isLoading = true
-        fetchRecipes { (recipes) in
+        RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
+            self.isLoading = false
             guard let recipes = recipes else {
-                print("ERROR -4")
-                self.isLoading = false
+                self.displayError(message: "Search could not be performed.")
                 return
             }
-            self.isLoading = false
+            guard recipes.count > 0 else {
+                self.displayError(message: "No recipe was found.")
+                return
+            }
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as! RecipeTableViewController
             recipeListView.recipes = recipes
             self.navigationController?.pushViewController(recipeListView, animated: true)
         }
@@ -87,22 +97,6 @@ class SearchViewController: UIViewController {
         ingredientTextField.resignFirstResponder()
     }
     
-    func fetchRecipes(callback: @escaping ([Recipe]?) -> Void) {
-        if SettingService.ingredients.count != 0 {
-            RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
-                guard let recipes = recipes else {
-                    print("ERROR - 5")
-                    callback(nil)
-                    return
-                }
-                callback(recipes)
-            }
-        } else {
-            print("ERROR - 6")
-            callback(nil)
-            return
-        }
-    }
 }
 
 extension SearchViewController: UITextFieldDelegate {

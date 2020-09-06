@@ -11,6 +11,7 @@ import Alamofire
 
 class RecipeTableViewController: UIViewController {
     enum Mode { case search, favorite }
+    let cache = NSCache<NSString,UIImage>()
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
     var recipes: [Recipe] = []
@@ -50,7 +51,6 @@ class RecipeTableViewController: UIViewController {
     }
 }
 
-
 extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
@@ -78,19 +78,16 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title
         cell.ingredientsLabel.text = recipe.query
+        cell.likesLabel.text = "_ _ _"
+        cell.timeLabel.text = "\(recipe.duration)m"
         
-        let placeholderImage = UIImage(named: "placeholder")
-        cell.backgroundImage.image = placeholderImage
-        
-        AF.download(recipe.imageUrl).responseData { (response) in
-            guard let data = response.value else { return }
-            if let updateCell = self.tableView.cellForRow(at: indexPath) as? RecipeTableViewCell {
-                recipe.setImageData(data: data)
-                updateCell.backgroundImage?.image = UIImage(data: data)
-            }
+        cell.backgroundImage.image = UIImage(named: "placeholder")
+        RecipeWebService.loadImage(url: recipe.imageUrl) { (image) in
+            cell.backgroundImage.image = image
+            recipe.setImageData(data: image.pngData())
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToDetail" {
             let destination = segue.destination as! DetailViewController

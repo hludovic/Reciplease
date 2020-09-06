@@ -12,6 +12,8 @@ import Alamofire
 class DetailViewController: UIViewController {
     @IBOutlet weak var imageDetail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var infoView: UIView!
@@ -44,41 +46,56 @@ class DetailViewController: UIViewController {
     
     private func addFavoriteButton() {
         let imageButton = UIImage(systemName: "star")
-        favButton = UIBarButtonItem(image: imageButton, style: .plain, target: self, action: #selector(saveToFavorite))
+        favButton = UIBarButtonItem(image: imageButton, style: .plain, target: self, action: #selector(pressFavoriteButton))
         navigationItem.rightBarButtonItem = favButton
     }
     
     private func commonInit() {
-        
         if Favorite.isFavorite(recipe: recipe!) {
             isFavorite = true
+        } else {
+            isFavorite = false
         }
-        
         guard let recipe = recipe else { return }
         titleLabel.text = recipe.title
+        timeLabel.text = "\(recipe.duration)m"
+        likesLabel.text = "_ _"
         ingredientsTextView.text = recipe.ingredients
+        
         if let imageData = recipe.imageData {
             imageDetail.image = UIImage(data: imageData)
-
         } else {
             imageDetail.image = UIImage(named: "placeholder")
         }
     }
     
-    @objc func saveToFavorite() {
+    @objc func pressFavoriteButton() {
+        guard let recipe = recipe else { return }
         if !isFavorite {
             do {
                 let favorite = Favorite(context: AppDelegate.viewContext)
-                favorite.addRecipe(recipe: recipe!)
+                favorite.newRecipe(recipe: recipe)
                 try AppDelegate.viewContext.save()
-                print("SAVED")
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
             } catch {
-                print("PAS SAUVEGARD2")
+                print("The recipe could not be added to favorites")
             }
             isFavorite = true
         } else {
+            guard Favorite.removeRecipe(recipe: recipe) else {
+                displayAlert(message: "The recipe could not be removed from favorites")
+                return
+            }
             isFavorite = false
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
         }
+    }
+    
+    private func displayAlert(message: String) {
+        let alert = UIAlertController(title: "Error !", message: message, preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
     }
     
 }

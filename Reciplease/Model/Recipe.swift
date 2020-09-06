@@ -42,7 +42,7 @@ class Recipe {
         self.imageData = favorite.imageData
     }
     
-    func setImageData(data: Data) {
+    func setImageData(data: Data?) {
         self.imageData = data
     }
     
