@@ -15,7 +15,13 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var ingredientTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+    var errorMessage: String? {
+        didSet {
+            let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
     var isLoading: Bool = false {
         didSet {
             if isLoading {
@@ -31,7 +37,7 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = false
@@ -40,27 +46,21 @@ class SearchViewController: UIViewController {
         clearButton.layer.cornerRadius = 3
         searchButton.layer.cornerRadius = 3
     }
-    
+
     private func refreshIngredientsList() {
         ingredientsTextView.text = ""
         for ingredient in SettingService.ingredients {
             ingredientsTextView.text! += "- \(ingredient) \n"
         }
     }
-    
-    private func displayError(message: String) {
-        let alert = UIAlertController(title: "Error !", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
+
     private func addIngredient() {
         guard let ingredient = ingredientTextField.text, ingredient != "" else {
-            displayError(message: "You must enter an ingredient before adding it to the list.")
+            errorMessage = "You must enter an ingredient before adding it to the list."
             return
         }
         SettingService.ingredients.append(ingredient)
-        ingredientTextField.text = ""
+        ingredientTextField.text = nil
         refreshIngredientsList()
     }
 
@@ -68,22 +68,22 @@ class SearchViewController: UIViewController {
         addIngredient()
         ingredientTextField.resignFirstResponder()
     }
-    
+
     @IBAction func pressClearButton(_ sender: UIButton) {
         SettingService.ingredients = []
         refreshIngredientsList()
     }
-    
+
     @IBAction func pressSearchButton(_ sender: UIButton) {
         isLoading = true
         RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
             self.isLoading = false
             guard let recipes = recipes else {
-                self.displayError(message: "Search could not be performed.")
+                self.errorMessage = "Search could not be performed."
                 return
             }
             guard recipes.count > 0 else {
-                self.displayError(message: "No recipe was found.")
+                self.errorMessage = "No recipe was found."
                 return
             }
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -92,7 +92,7 @@ class SearchViewController: UIViewController {
             self.navigationController?.pushViewController(recipeListView, animated: true)
         }
     }
-    
+
     @IBAction func hideKeyboard(_ sender: Any) {
         ingredientTextField.resignFirstResponder()
     }

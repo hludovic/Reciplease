@@ -18,10 +18,19 @@ class RecipeTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         if tabBarController?.selectedViewController?.tabBarItem.tag == 1 {
             mode = .favorite
         }
-        commonInit()
+
+        switch mode {
+        case .favorite:
+            title = "Favorite"
+            recipes = Favorite.allRecipes
+            tableView.reloadData()
+        case .search:
+            title = "Reciplease"
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,19 +41,16 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
-    func commonInit() {
-        switch mode {
-        case .favorite:
-            title = "Favorite"
-            recipes = Favorite.allRecipes
-            tableView.reloadData()
-        case .search:
-            title = "Reciplease"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToDetail" {
+            let destination = segue.destination as! DetailViewController
+            let recipe = recipes[tableView.indexPathForSelectedRow!.row]
+            destination.recipe = recipe
         }
     }
 }
 
-extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate {
+extension RecipeTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
     }
@@ -65,7 +71,7 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
             try? AppDelegate.viewContext.save()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if mode == .favorite {
             return true
@@ -81,26 +87,24 @@ extension RecipeTableViewController: UITableViewDataSource, UITableViewDelegate 
         cell.likesLabel.text = "_ _ _"
         cell.timeLabel.text = "\(recipe.duration)m"
         cell.backgroundImage.image = UIImage(named: "placeholder")
-        if let cachedImage: UIImage = cache.object(forKey: recipe.imageUrl as NSString) {
-            cell.backgroundImage.image = cachedImage
+        if let image = recipe.imageData {
+            cell.backgroundImage.image = UIImage(data: image)
         } else {
-            AF.download(recipe.imageUrl).responseData { (response) in
-                guard let data = response.value, let image = UIImage(data: data)  else {
-                    return
-                }
-                self.cache.setObject(image, forKey: NSString(string: recipe.imageUrl))
+            if let image: UIImage = cache.object(forKey: recipe.imageUrl as NSString) {
                 cell.backgroundImage.image = image
                 recipe.setImageData(data: image.pngData())
+            } else {
+                AF.download(recipe.imageUrl).responseData { (response) in
+                    guard let data = response.value, let image = UIImage(data: data)  else {
+                        return
+                    }
+                    self.cache.setObject(image, forKey: NSString(string: recipe.imageUrl))
+                    if let updatedCell = self.tableView.cellForRow(at: indexPath) as? RecipeTableViewCell {
+                        updatedCell.backgroundImage.image = image
+                        recipe.setImageData(data: image.pngData())
+                    }
+                }
             }
         }
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToDetail" {
-            let destination = segue.destination as! DetailViewController
-            let recipe = recipes[tableView.indexPathForSelectedRow!.row]
-            destination.recipe = recipe
-        }
-    }
-    
 }

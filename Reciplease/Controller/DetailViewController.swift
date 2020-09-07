@@ -17,61 +17,46 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var favoriteButton: UIBarButtonItem!
     var recipe: Recipe?
-    var favButton: UIBarButtonItem?
+    var errorMessage: String? {
+        didSet {
+            let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
     var isFavorite: Bool = false {
         didSet {
             if isFavorite {
                 let imageButton = UIImage(systemName: "star.fill")
-                favButton?.image = imageButton
-                favButton?.tintColor = #colorLiteral(red: 0.2666666667, green: 0.5803921569, blue: 0.3647058824, alpha: 1)
+                favoriteButton?.image = imageButton
+                favoriteButton?.tintColor = #colorLiteral(red: 0.2666666667, green: 0.5803921569, blue: 0.3647058824, alpha: 1)
             } else {
                 let imageButton = UIImage(systemName: "star")
-                favButton?.image = imageButton
-                favButton?.tintColor = UIColor.white
+                favoriteButton?.image = imageButton
+                favoriteButton?.tintColor = UIColor.white
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let recipe = recipe else { return }
         title = "Reciplease"
-        addFavoriteButton()
-        commonInit()
+        if Favorite.isFavorite(recipe: recipe) { isFavorite = true }
+        titleLabel.text = recipe.title
+        timeLabel.text = "\(recipe.duration)m"
+        likesLabel.text = "_ _ _"
+        ingredientsTextView.text = recipe.ingredients
+        if let imageData = recipe.imageData {
+            imageDetail.image = UIImage(data: imageData)
+        }
         goButton.layer.cornerRadius = 3
         infoView.layer.cornerRadius = 3
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    private func addFavoriteButton() {
-        let imageButton = UIImage(systemName: "star")
-        favButton = UIBarButtonItem(image: imageButton, style: .plain, target: self, action: #selector(pressFavoriteButton))
-        navigationItem.rightBarButtonItem = favButton
-    }
-    
-    private func commonInit() {
-        if Favorite.isFavorite(recipe: recipe!) {
-            isFavorite = true
-        } else {
-            isFavorite = false
-        }
-        guard let recipe = recipe else { return }
-        titleLabel.text = recipe.title
-        timeLabel.text = "\(recipe.duration)m"
-        likesLabel.text = "_ _"
-        ingredientsTextView.text = recipe.ingredients
-        
-        if let imageData = recipe.imageData {
-            imageDetail.image = UIImage(data: imageData)
-        } else {
-            imageDetail.image = UIImage(named: "placeholder")
-        }
-    }
-    
-    @objc func pressFavoriteButton() {
+
+    @IBAction func pressFavButton(_ sender: UIBarButtonItem) {
         guard let recipe = recipe else { return }
         if !isFavorite {
             do {
@@ -81,12 +66,12 @@ class DetailViewController: UIViewController {
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)
             } catch {
-                print("The recipe could not be added to favorites")
+                errorMessage =  "The recipe could not be added to favorites."
             }
             isFavorite = true
         } else {
             guard Favorite.removeRecipe(recipe: recipe) else {
-                displayAlert(message: "The recipe could not be removed from favorites")
+                errorMessage = "The recipe could not be removed from favorites."
                 return
             }
             isFavorite = false
@@ -94,17 +79,12 @@ class DetailViewController: UIViewController {
             generator.notificationOccurred(.success)
         }
     }
-    
+
     @IBAction func pressDirectionsButton(_ sender: UIButton) {
         guard let urlString = recipe?.directions, let url = URL(string: urlString) else {
-            print("ERROR")
+            errorMessage = "The url of the recipe is not good."
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    private func displayAlert(message: String) {
-        let alert = UIAlertController(title: "Error !", message: message, preferredStyle: .alert)
-        present(alert, animated: true, completion: nil)
-    }
-    
 }

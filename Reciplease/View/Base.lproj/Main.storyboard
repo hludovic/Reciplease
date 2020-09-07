@@ -164,7 +164,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" name="#373332"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" id="Upy-X0-Hdu" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="150" id="Upy-X0-Hdu" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Upy-X0-Hdu" id="DwB-DM-wgT">
@@ -173,9 +173,6 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="VLp-Lg-Nj4">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="150" id="2tH-W4-2cO"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XII-HH-CuY">
                                                     <rect key="frame" x="324" y="11" width="70" height="60"/>
@@ -195,13 +192,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="777m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeI-Bb-p6a">
-                                                            <rect key="frame" x="5" y="34" width="43" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="5" y="37" width="43" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stopwatch.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mme-do-ptq">
-                                                            <rect key="frame" x="49" y="36" width="16" height="17"/>
+                                                            <rect key="frame" x="49" y="37.5" width="16" height="17"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="5FQ-lp-82W"/>
@@ -367,8 +364,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oF0-qR-mpo">
                                 <rect key="frame" x="324" y="108" width="70" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="245" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIf-Ch-2az">
-                                        <rect key="frame" x="5" y="5" width="31" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="777" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIf-Ch-2az">
+                                        <rect key="frame" x="5" y="5" width="43" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -381,14 +378,14 @@
                                             <constraint firstAttribute="width" constant="16" id="YZi-BY-Ou6"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvD-UW-a0a">
-                                        <rect key="frame" x="5" y="34" width="35" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvD-UW-a0a">
+                                        <rect key="frame" x="5" y="37" width="43" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stopwatch.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZcJ-72-7PO">
-                                        <rect key="frame" x="49" y="36" width="16" height="17"/>
+                                        <rect key="frame" x="49" y="37.5" width="16" height="17"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="FCj-OS-ZF8"/>
@@ -401,15 +398,15 @@
                                     <constraint firstAttribute="bottom" secondItem="HvD-UW-a0a" secondAttribute="bottom" constant="5" id="3hk-VI-hiv"/>
                                     <constraint firstItem="HvD-UW-a0a" firstAttribute="leading" secondItem="oF0-qR-mpo" secondAttribute="leading" constant="5" id="4HD-sv-4MR"/>
                                     <constraint firstItem="geg-yc-m3P" firstAttribute="centerY" secondItem="bIf-Ch-2az" secondAttribute="centerY" id="7Hp-XJ-bVH"/>
-                                    <constraint firstItem="geg-yc-m3P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bIf-Ch-2az" secondAttribute="trailing" constant="8" symbolic="YES" id="98u-CR-RaO"/>
                                     <constraint firstItem="ZcJ-72-7PO" firstAttribute="firstBaseline" secondItem="HvD-UW-a0a" secondAttribute="firstBaseline" id="Ge0-QF-gSi"/>
                                     <constraint firstItem="bIf-Ch-2az" firstAttribute="leading" secondItem="oF0-qR-mpo" secondAttribute="leading" constant="5" id="Y5T-QM-g3S"/>
+                                    <constraint firstItem="geg-yc-m3P" firstAttribute="leading" secondItem="bIf-Ch-2az" secondAttribute="trailing" constant="1" id="cML-ZB-u9X"/>
                                     <constraint firstAttribute="height" constant="60" id="eun-uc-JHB"/>
                                     <constraint firstItem="bIf-Ch-2az" firstAttribute="top" secondItem="oF0-qR-mpo" secondAttribute="top" constant="5" id="hmY-Co-35Z"/>
                                     <constraint firstAttribute="trailing" secondItem="geg-yc-m3P" secondAttribute="trailing" constant="5" id="itZ-Xz-QzL"/>
                                     <constraint firstAttribute="width" constant="70" id="reG-Pn-Fbe"/>
                                     <constraint firstAttribute="trailing" secondItem="ZcJ-72-7PO" secondAttribute="trailing" constant="5" id="uB5-FF-trx"/>
-                                    <constraint firstItem="ZcJ-72-7PO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HvD-UW-a0a" secondAttribute="trailing" constant="8" symbolic="YES" id="wEv-Wf-iSx"/>
+                                    <constraint firstItem="ZcJ-72-7PO" firstAttribute="leading" secondItem="HvD-UW-a0a" secondAttribute="trailing" constant="1" id="vli-sj-b1x"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -436,8 +433,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hpP-Py-RfB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="xd6-HZ-ecv"/>
+                    <navigationItem key="navigationItem" id="xd6-HZ-ecv">
+                        <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="x9Z-0f-GVm">
+                            <connections>
+                                <action selector="pressFavButton:" destination="4h7-vz-wFf" id="xZj-Ov-sbP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="favoriteButton" destination="x9Z-0f-GVm" id="Vuh-OF-JHS"/>
                         <outlet property="goButton" destination="g93-HR-HiW" id="kHC-cm-xms"/>
                         <outlet property="imageDetail" destination="PDR-wU-1aM" id="U7D-wW-GpQ"/>
                         <outlet property="infoView" destination="oF0-qR-mpo" id="xp9-Of-xQe"/>
@@ -525,6 +529,7 @@
         <image name="hand.thumbsup.fill" catalog="system" width="128" height="124"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="placeholder" width="500" height="333"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="stopwatch.fill" catalog="system" width="121" height="128"/>
         <namedColor name="#373332">
             <color red="0.21568627450980393" green="0.20000000000000001" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -72,7 +72,6 @@
 			children = (
 				438FF6C024FC4BC2001F238B /* SearchViewController.swift */,
 				43879EE224FC80E400DA5DC8 /* RecipeTableViewController.swift */,
-				43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */,
 				4302708E250049D000A63AB1 /* DetailViewController.swift */,
 			);
 			path = Controller;
@@ -82,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				438FF6C224FC4BC2001F238B /* Main.storyboard */,
+				43879EE424FC85F600DA5DC8 /* RecipeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

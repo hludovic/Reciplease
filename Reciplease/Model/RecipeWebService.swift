@@ -42,26 +42,17 @@ class RecipeWebService {
 struct result: Decodable {
     let count: Int
     let hits: [Hit]
-}
-
-struct Hit: Decodable {
-    let recipe: RecipeResult
+    
+    struct Hit: Decodable {
+        let recipe: RecipeResult
+    }
 }
 
 struct RecipeResult: Decodable {
-    let id: String
-    let title: String
-    let ingredients: [String]
-    let duration: Int
+    let uri: String
+    let label: String
+    let ingredientLines: [String]
+    let totalTime: Int
     let image: String
-    let directions: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "uri"
-        case title = "label"
-        case ingredients = "ingredientLines"
-        case duration = "totalTime"
-        case image
-        case directions = "url"
-    }
+    let url: String
 }
