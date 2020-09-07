@@ -9,12 +9,16 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    
+    // MARK: - IBOutlet Properties
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var ingredientTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    // MARK: - Properties
     var errorMessage: String? {
         didSet {
             let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)
@@ -38,6 +42,7 @@ class SearchViewController: UIViewController {
         }
     }
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoading = false
@@ -47,23 +52,8 @@ class SearchViewController: UIViewController {
         searchButton.layer.cornerRadius = 3
     }
 
-    private func refreshIngredientsList() {
-        ingredientsTextView.text = ""
-        for ingredient in SettingService.ingredients {
-            ingredientsTextView.text! += "- \(ingredient) \n"
-        }
-    }
 
-    private func addIngredient() {
-        guard let ingredient = ingredientTextField.text, ingredient != "" else {
-            errorMessage = "You must enter an ingredient before adding it to the list."
-            return
-        }
-        SettingService.ingredients.append(ingredient)
-        ingredientTextField.text = nil
-        refreshIngredientsList()
-    }
-
+    // MARK: - IBAction Methods
     @IBAction func pressAddButton(_ sender: UIButton) {
         addIngredient()
         ingredientTextField.resignFirstResponder()
@@ -98,6 +88,27 @@ class SearchViewController: UIViewController {
     }
 }
 
+// MARK: - Private Methods
+private extension SearchViewController {
+    func refreshIngredientsList() {
+        ingredientsTextView.text = ""
+        for ingredient in SettingService.ingredients {
+            ingredientsTextView.text! += "- \(ingredient) \n"
+        }
+    }
+
+    func addIngredient() {
+        guard let ingredient = ingredientTextField.text, ingredient != "" else {
+            errorMessage = "You must enter an ingredient before adding it to the list."
+            return
+        }
+        SettingService.ingredients.append(ingredient)
+        ingredientTextField.text = nil
+        refreshIngredientsList()
+    }
+}
+
+// MARK: - UITextFieldDelegate
 extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         addIngredient()

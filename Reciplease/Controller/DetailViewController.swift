@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 
 class DetailViewController: UIViewController {
+    
+    // MARK: - IBOutlet Properties
     @IBOutlet weak var imageDetail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
@@ -18,6 +20,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
+
+    // MARK: - Properties
     var recipe: Recipe?
     var errorMessage: String? {
         didSet {
@@ -40,6 +44,7 @@ class DetailViewController: UIViewController {
         }
     }
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let recipe = recipe else { return }
@@ -56,12 +61,13 @@ class DetailViewController: UIViewController {
         infoView.layer.cornerRadius = 3
     }
 
+    // MARK: - IBAction Methods
     @IBAction func pressFavButton(_ sender: UIBarButtonItem) {
         guard let recipe = recipe else { return }
         if !isFavorite {
             do {
                 let favorite = Favorite(context: AppDelegate.viewContext)
-                favorite.newRecipe(recipe: recipe)
+                favorite.newObject(recipe: recipe)
                 try AppDelegate.viewContext.save()
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)

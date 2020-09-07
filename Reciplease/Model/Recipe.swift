@@ -18,16 +18,16 @@ class Recipe {
     let query: String
     let title: String
     
-    init(result: RecipeResult) {
-        self.directions = result.url
-        self.duration = result.totalTime
-        self.id = result.uri
-        self.imageUrl = result.image
-        self.ingredients = result.ingredientLines.joined(separator: "\n- ")
+    init(directions: String, duration: Int, id: String, image: String, ingredients: [String], title: String) {
+        self.directions = directions
+        self.duration = duration
+        self.id = id
+        self.imageUrl = image
+        self.ingredients = ingredients.joined(separator: "\n- ")
         self.query = SettingService.ingredients.joined(separator: ", ")
-        self.title = result.label
+        self.title = title
     }
-    
+
     init(favorite: Favorite) {
         self.directions = favorite.directions!
         self.duration = Int(favorite.duration)

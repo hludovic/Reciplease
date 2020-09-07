@@ -10,12 +10,17 @@ import UIKit
 import Alamofire
 
 class RecipeTableViewController: UIViewController {
-    enum Mode { case search, favorite }
-    let cache = NSCache<NSString,UIImage>()
+    
+    // MARK: - IBOutlet Properties
     @IBOutlet weak var tableView: UITableView!
+    private enum Mode { case search, favorite }
+    
+    // MARK: - Properties
+    private let cache = NSCache<NSString,UIImage>()
+    private var mode: Mode = .search
     var recipes: [Recipe] = []
-    var mode: Mode = .search
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +55,7 @@ class RecipeTableViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension RecipeTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
@@ -80,7 +86,11 @@ extension RecipeTableViewController: UITableViewDataSource {
         }
     }
 
-    private func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
+}
+
+// MARK: - Private Methods
+private extension RecipeTableViewController {
+    func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title
         cell.ingredientsLabel.text = recipe.query

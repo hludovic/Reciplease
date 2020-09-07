@@ -27,7 +27,7 @@ class Favorite: NSManagedObject {
         }
         return recipes
     }
-    
+
     static func isFavorite(recipe: Recipe) -> Bool {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", recipe.id)
@@ -39,7 +39,7 @@ class Favorite: NSManagedObject {
         }
     }
     
-    func newRecipe(recipe: Recipe) {
+    func newObject(recipe: Recipe) {
         self.directions = recipe.directions
         self.duration = Int16(recipe.duration)
         self.id = recipe.id
