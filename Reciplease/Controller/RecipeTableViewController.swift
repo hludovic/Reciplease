@@ -31,7 +31,7 @@ class RecipeTableViewController: UIViewController {
         switch mode {
         case .favorite:
             title = "Favorite"
-            recipes = Favorite.allRecipes
+            loadFavorites()
             tableView.reloadData()
         case .search:
             title = "Reciplease"
@@ -41,7 +41,7 @@ class RecipeTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if mode == .favorite {
-            recipes = Favorite.allRecipes
+            loadFavorites()
             tableView.reloadData()
         }
     }
@@ -70,11 +70,9 @@ extension RecipeTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard mode == .favorite else { return }
         if editingStyle == .delete {
-            let favorite = Favorite.all[indexPath.row]
-            AppDelegate.viewContext.delete(favorite)
+            guard Favorite.remove(id: recipes[indexPath.row].id) else { return }
             recipes.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            try? AppDelegate.viewContext.save()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 
@@ -90,6 +88,16 @@ extension RecipeTableViewController: UITableViewDataSource {
 
 // MARK: - Private Methods
 private extension RecipeTableViewController {
+    func loadFavorites() {
+        let favorites = Favorite.all
+        var tab: [Recipe] = []
+        for favorite in favorites {
+            let recipe = Recipe(favorite: favorite)
+            tab.append(recipe)
+        }
+        recipes = tab
+    }
+
     func fillACell(cell: RecipeTableViewCell, indexPath: IndexPath) {
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title

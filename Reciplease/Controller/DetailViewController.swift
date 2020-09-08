@@ -49,7 +49,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         guard let recipe = recipe else { return }
         title = "Reciplease"
-        if Favorite.isFavorite(recipe: recipe) { isFavorite = true }
+        isFavorite = recipe.isFavorite
         titleLabel.text = recipe.title
         timeLabel.text = "\(recipe.duration)m"
         likesLabel.text = "_ _ _"
@@ -76,7 +76,7 @@ class DetailViewController: UIViewController {
             }
             isFavorite = true
         } else {
-            guard Favorite.removeRecipe(recipe: recipe) else {
+            guard Favorite.remove(id: recipe.id) else {
                 errorMessage = "The recipe could not be removed from favorites."
                 return
             }
