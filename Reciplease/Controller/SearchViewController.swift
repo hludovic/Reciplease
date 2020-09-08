@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    
+
     // MARK: - IBOutlet Properties
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
@@ -17,7 +17,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var ingredientTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     // MARK: - Properties
     var errorMessage: String? {
         didSet {
@@ -52,7 +52,6 @@ class SearchViewController: UIViewController {
         searchButton.layer.cornerRadius = 3
     }
 
-
     // MARK: - IBAction Methods
     @IBAction func pressAddButton(_ sender: UIButton) {
         addIngredient()
@@ -77,9 +76,10 @@ class SearchViewController: UIViewController {
                 return
             }
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as! RecipeTableViewController
-            recipeListView.recipes = recipes
-            self.navigationController?.pushViewController(recipeListView, animated: true)
+            if let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as? RecipeTableViewController {
+                recipeListView.recipes = recipes
+                self.navigationController?.pushViewController(recipeListView, animated: true)
+            }
         }
     }
 
@@ -116,4 +116,3 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
 }
-

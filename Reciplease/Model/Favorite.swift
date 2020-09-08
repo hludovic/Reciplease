@@ -26,14 +26,13 @@ class Favorite: NSManagedObject {
         self.query = recipe.query
         self.title = recipe.title
     }
-    
+
     static func remove(id: String) -> Bool {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)
-        guard let favoriteResult = try? AppDelegate.viewContext.fetch(request), favoriteResult.count > 0 else { return false}
+        guard let favoriteResult = try? AppDelegate.viewContext.fetch(request), favoriteResult.count > 0 else { return false }
         let favorite = favoriteResult[0]
         AppDelegate.viewContext.delete(favorite)
         return true
     }
-    
 }

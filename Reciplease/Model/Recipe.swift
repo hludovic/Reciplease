@@ -28,7 +28,7 @@ class Recipe {
             return false
         }
     }
-    
+
     init(directions: String, duration: Int, id: String, image: String, ingredients: [String], title: String) {
         self.directions = directions
         self.duration = duration
@@ -49,9 +49,8 @@ class Recipe {
         self.title = favorite.title!
         self.imageData = favorite.imageData
     }
-    
+
     func setImageData(data: Data?) {
         self.imageData = data
     }
-    
 }

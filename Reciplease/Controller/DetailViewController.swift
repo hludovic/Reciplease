@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class DetailViewController: UIViewController {
-    
+
     // MARK: - IBOutlet Properties
     @IBOutlet weak var imageDetail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

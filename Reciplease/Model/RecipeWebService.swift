@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 
 class RecipeWebService {
-    private static let app_key = "_" // API KEY
-    private static let app_id = "_"  // API ID
+    private static let appKey = "_" // API KEY
+    private static let appId = "_"  // API ID
     private static let url = "https://api.edamam.com/search"
 
     static func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
@@ -20,11 +20,11 @@ class RecipeWebService {
             return
         }
         var recipes: [Recipe] = []
-        let q: String = keywords.joined(separator: ", ")        
-        let parameters: [String: String] = [ "app_key": app_key, "app_id": app_id, "q": q ]
+        let query: String = keywords.joined(separator: ", ")
+        let parameters: [String: String] = [ "app_key": appKey, "app_id": appId, "q": query ]
         AF.request(url, method: .get, parameters: parameters)
             .validate()
-            .responseDecodable(of: result.self) { (response) in
+            .responseDecodable(of: Result.self) { (response) in
                 guard let result = response.value else {
                     callback(nil)
                     return
@@ -39,13 +39,11 @@ class RecipeWebService {
         }
     }
 
-    private struct result: Decodable {
+    private struct Result: Decodable {
         let count: Int
         let hits: [Hit]
-        
         struct Hit: Decodable {
             let recipe: RecipeResult
-            
             struct RecipeResult: Decodable {
                 let uri: String
                 let label: String
@@ -57,4 +55,3 @@ class RecipeWebService {
         }
     }
 }
-

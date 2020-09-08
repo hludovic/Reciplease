@@ -10,13 +10,13 @@ import UIKit
 import Alamofire
 
 class RecipeTableViewController: UIViewController {
-    
+
     // MARK: - IBOutlet Properties
     @IBOutlet weak var tableView: UITableView!
     private enum Mode { case search, favorite }
-    
+
     // MARK: - Properties
-    private let cache = NSCache<NSString,UIImage>()
+    private let cache = NSCache<NSString, UIImage>()
     private var mode: Mode = .search
     var recipes: [Recipe] = []
 
@@ -48,7 +48,7 @@ class RecipeTableViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToDetail" {
-            let destination = segue.destination as! DetailViewController
+            guard let destination = segue.destination as? DetailViewController else { return }
             let recipe = recipes[tableView.indexPathForSelectedRow!.row]
             destination.recipe = recipe
         }
@@ -62,7 +62,9 @@ extension RecipeTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
+            return RecipeTableViewCell()
+        }
         fillACell(cell: cell, indexPath: indexPath)
         return cell
     }
