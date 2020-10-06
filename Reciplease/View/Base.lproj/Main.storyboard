@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h0m-Qd-wsP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h0m-Qd-wsP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,7 +35,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgU-WC-bBe">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgU-WC-bBe">
                                         <rect key="frame" x="329" y="68" width="65" height="30"/>
                                         <color key="backgroundColor" name="#44945D"/>
                                         <constraints>
@@ -47,7 +49,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="bsW-9v-xUn" firstAttribute="leading" secondItem="HX4-bm-02E" secondAttribute="leading" constant="20" id="0tb-EH-gBt"/>
                                     <constraint firstItem="SgU-WC-bBe" firstAttribute="centerY" secondItem="bsW-9v-xUn" secondAttribute="centerY" id="ErS-Xc-yC7"/>
@@ -70,7 +72,7 @@
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4Y-jQ-PKC">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4Y-jQ-PKC">
                                 <rect key="frame" x="329" y="224" width="65" height="30"/>
                                 <color key="backgroundColor" name="#8B898A"/>
                                 <constraints>
@@ -89,7 +91,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHp-40-mFY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHp-40-mFY">
                                 <rect key="frame" x="30" y="738" width="354" height="55"/>
                                 <color key="backgroundColor" name="#44945D"/>
                                 <constraints>
@@ -107,6 +109,7 @@
                                 <rect key="frame" x="188.5" y="747" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="#373332"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -128,7 +131,6 @@
                             <constraint firstItem="ku3-Jd-9cD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="tMY-2y-mq0"/>
                             <constraint firstItem="bFa-wo-pCa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wfe-eN-9gK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="OzD-cf-0FM" appends="YES" id="Jwu-ya-EUT"/>
                         </connections>
@@ -184,7 +186,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand.thumbsup.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ynb-tk-ReT">
-                                                            <rect key="frame" x="49" y="7" width="16" height="15.5"/>
+                                                            <rect key="frame" x="49" y="7" width="16" height="16"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="16" id="5fD-kA-44p"/>
@@ -279,14 +281,14 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="fzW-Oh-xNP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fzW-Oh-xNP" firstAttribute="bottom" secondItem="RXV-4X-g4t" secondAttribute="bottom" id="87K-6V-sSb"/>
                             <constraint firstItem="RXV-4X-g4t" firstAttribute="top" secondItem="fzW-Oh-xNP" secondAttribute="top" id="Sjz-IF-s6V"/>
                             <constraint firstItem="RXV-4X-g4t" firstAttribute="leading" secondItem="fzW-Oh-xNP" secondAttribute="leading" id="UKa-25-V8x"/>
                             <constraint firstItem="fzW-Oh-xNP" firstAttribute="trailing" secondItem="RXV-4X-g4t" secondAttribute="trailing" id="aOC-N7-mwP"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="fzW-Oh-xNP"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ph3-Hw-PTf"/>
                     <connections>
@@ -329,7 +331,7 @@
                                     <constraint firstItem="pls-Dg-8zi" firstAttribute="leading" secondItem="6Gg-93-gRr" secondAttribute="leading" constant="8" id="ffx-70-PYQ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g93-HR-HiW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g93-HR-HiW">
                                 <rect key="frame" x="30" y="787" width="354" height="55"/>
                                 <color key="backgroundColor" name="#44945D"/>
                                 <constraints>
@@ -371,7 +373,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand.thumbsup.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="geg-yc-m3P">
-                                        <rect key="frame" x="49" y="7" width="16" height="15.5"/>
+                                        <rect key="frame" x="49" y="7" width="16" height="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="VfH-fr-2VR"/>
@@ -410,6 +412,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hpP-Py-RfB"/>
                         <color key="backgroundColor" name="#373332"/>
                         <constraints>
                             <constraint firstItem="oF0-qR-mpo" firstAttribute="top" secondItem="hpP-Py-RfB" secondAttribute="top" constant="20" id="7JX-fN-LtN"/>
@@ -431,7 +434,6 @@
                             <constraint firstItem="YgS-nL-snl" firstAttribute="top" secondItem="PDR-wU-1aM" secondAttribute="bottom" constant="20" id="nVH-R3-HTn"/>
                             <constraint firstItem="6Gg-93-gRr" firstAttribute="leading" secondItem="hpP-Py-RfB" secondAttribute="leading" id="yCX-ww-kCv"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hpP-Py-RfB"/>
                     </view>
                     <navigationItem key="navigationItem" id="xd6-HZ-ecv">
                         <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="x9Z-0f-GVm">
@@ -526,7 +528,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hand.thumbsup.fill" catalog="system" width="128" height="124"/>
+        <image name="hand.thumbsup.fill" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="placeholder" width="500" height="333"/>
         <image name="star" catalog="system" width="128" height="116"/>
@@ -540,5 +542,8 @@
         <namedColor name="#8B898A">
             <color red="0.54509803921568623" green="0.53725490196078429" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
