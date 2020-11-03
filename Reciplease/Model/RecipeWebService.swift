@@ -24,7 +24,7 @@ class RecipeWebService {
         let parameters: [String: String] = [ "app_key": appKey, "app_id": appId, "q": query ]
         AF.request(url, method: .get, parameters: parameters)
             .validate()
-            .responseDecodable(of: Result.self) { (response) in
+            .responseDecodable(of: ResultRequest.self) { (response) in
                 guard let result = response.value else {
                     callback(nil)
                     return
@@ -39,7 +39,7 @@ class RecipeWebService {
         }
     }
 
-    private struct Result: Decodable {
+    struct ResultRequest: Decodable {
         let count: Int
         let hits: [Hit]
         struct Hit: Decodable {

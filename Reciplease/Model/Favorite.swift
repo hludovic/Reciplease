@@ -10,9 +10,15 @@ import Foundation
 import CoreData
 
 class Favorite: NSManagedObject {
-    static var all: [Favorite] {
+//    static var all: [Favorite] {
+//        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        guard let result = try? CoreDataStack.viewContext.fetch(request) else { return [] }
+//        return result
+//    }
+    
+    static func all(context: NSManagedObjectContext) ->[Favorite] {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        guard let result = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        guard let result = try? context.fetch(request) else { return [] }
         return result
     }
 
@@ -30,9 +36,9 @@ class Favorite: NSManagedObject {
     static func remove(id: String) -> Bool {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)
-        guard let favoriteResult = try? AppDelegate.viewContext.fetch(request), favoriteResult.count > 0 else { return false }
+        guard let favoriteResult = try? CoreDataStack.viewContext.fetch(request), favoriteResult.count > 0 else { return false }
         let favorite = favoriteResult[0]
-        AppDelegate.viewContext.delete(favorite)
+        CoreDataStack.viewContext.delete(favorite)
         return true
     }
 }

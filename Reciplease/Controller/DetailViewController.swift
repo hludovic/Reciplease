@@ -60,29 +60,33 @@ class DetailViewController: UIViewController {
         goButton.layer.cornerRadius = 3
         infoView.layer.cornerRadius = 3
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        isFavorite = recipe!.isFavorite
+    }
     // MARK: - IBAction Methods
     @IBAction func pressFavButton(_ sender: UIBarButtonItem) {
         guard let recipe = recipe else { return }
         if !isFavorite {
-            do {
-                let favorite = Favorite(context: AppDelegate.viewContext)
-                favorite.newObject(recipe: recipe)
-                try AppDelegate.viewContext.save()
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-            } catch {
-                errorMessage =  "The recipe could not be added to favorites."
+            guard !recipe.isFavorite else {
+                errorMessage = "The recipe could not be added to favorites."
+                return
             }
+            let favorite = Favorite(context: CoreDataStack.viewContext)
+            favorite.newObject(recipe: recipe)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            CoreDataStack.saveContext()
             isFavorite = true
         } else {
             guard Favorite.remove(id: recipe.id) else {
                 errorMessage = "The recipe could not be removed from favorites."
                 return
             }
-            isFavorite = false
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
+            CoreDataStack.saveContext()
+            isFavorite = false
         }
     }
 

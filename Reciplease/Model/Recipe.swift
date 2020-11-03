@@ -21,7 +21,7 @@ class Recipe {
     var isFavorite: Bool {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)
-        guard let response = try? AppDelegate.viewContext.fetch(request) else { return false }
+        guard let response = try? CoreDataStack.viewContext.fetch(request) else { return false }
         if response.count > 0 {
             return true
         } else {
