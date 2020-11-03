@@ -25,7 +25,6 @@
 		438FF6C924FC4BCB001F238B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 438FF6C824FC4BCB001F238B /* Assets.xcassets */; };
 		438FF6CC24FC4BCB001F238B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438FF6CA24FC4BCB001F238B /* LaunchScreen.storyboard */; };
 		43CC76492550A7D900FCEE50 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CC76482550A7D900FCEE50 /* CoreDataStack.swift */; };
-		43CC764D2550B68700FCEE50 /* FakeCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CC764C2550B68700FCEE50 /* FakeCoreDataStack.swift */; };
 		FDF2CB0460D41130A3D989EA /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A62244109FB62D02EC3209 /* Pods_Reciplease.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +62,6 @@
 		43B3AFE8250842260075E323 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B3AFEC250842260075E323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43CC76482550A7D900FCEE50 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		43CC764C2550B68700FCEE50 /* FakeCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCoreDataStack.swift; sourceTree = "<group>"; };
 		B6A62244109FB62D02EC3209 /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D29F5587639DBCC978104BE1 /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,7 +174,6 @@
 			children = (
 				436889A5252A21D9007A62A2 /* SettingServiceTests.swift */,
 				433639D4252CBB3E00B160B7 /* FavoriteTests.swift */,
-				43CC764C2550B68700FCEE50 /* FakeCoreDataStack.swift */,
 				433639DE252CC0C000B160B7 /* ResultRequest.json */,
 				43B3AFEC250842260075E323 /* Info.plist */,
 			);
@@ -358,7 +355,6 @@
 			files = (
 				436889A6252A21D9007A62A2 /* SettingServiceTests.swift in Sources */,
 				433639D5252CBB3E00B160B7 /* FavoriteTests.swift in Sources */,
-				43CC764D2550B68700FCEE50 /* FakeCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

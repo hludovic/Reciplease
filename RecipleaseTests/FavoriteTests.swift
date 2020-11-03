@@ -7,29 +7,31 @@
 //
 
 import XCTest
+import CoreData
 @testable import Reciplease
 
 class FavoriteTests: XCTestCase {
+    var testableContext: NSManagedObjectContext!
+    
     override func setUp() {
         super.setUp()
+        self.testableContext = loadTestableContext()
     }
     
-    func testOk() {
-        let recipes = loadRecipe()
-        
-        let favorite = Favorite(context: FakeCoreDataStack.testableContext)
-        favorite.newObject(recipe: recipes[0])
-        let fav2 = Favorite(context: FakeCoreDataStack.testableContext)
-        fav2.newObject(recipe: recipes[1])
-        
-        try? FakeCoreDataStack.testableContext.save()
-        
-        print("😇 \(Favorite.all(context: FakeCoreDataStack.testableContext).count)")
-        print("😇 \(Favorite.all(context: FakeCoreDataStack.testableContext)[0].title!)")
+    func loadTestableContext() -> NSManagedObjectContext {
+        let persistentStoreDescription = NSPersistentStoreDescription()
+        persistentStoreDescription.type = NSInMemoryStoreType
+        let container = NSPersistentContainer(name: "Reciplease")
+        container.persistentStoreDescriptions = [persistentStoreDescription]
+        container.loadPersistentStores { _, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        return container.newBackgroundContext()
     }
     
-    
-    func loadRecipe() -> [Recipe] {
+    func loadFakeResponseData() -> [Recipe] {
         let bundle = Bundle(for: FavoriteTests.self)
         let url = bundle.url(forResource: "ResultRequest", withExtension: "json")!
         var recipes:[Recipe] = []
@@ -45,8 +47,28 @@ class FavoriteTests: XCTestCase {
                 recipes.append(recipe)
             }
         } catch {
-            print("Error")
+            print(" ‼️ Error")
         }
         return recipes
     }
+
+    
+    func testWhenSavingAFavoriteThenItShouldBeSaved() {
+        let recipes = loadFakeResponseData()
+        XCTAssertEqual(0, Favorite.all(context: testableContext).count)
+        
+        let favorite1 = Favorite(context: testableContext)
+        favorite1.newObject(recipe: recipes[6])
+        let favorite2 = Favorite(context: testableContext)
+        favorite2.newObject(recipe: recipes[7])
+        
+        try? testableContext.save()
+        
+        XCTAssertEqual(2, Favorite.all(context: testableContext).count)
+        XCTAssertEqual("Sugar Cookies", Favorite.all(context: testableContext)[0].title!)
+        XCTAssertEqual("Sugar-Cookie Handprints", Favorite.all(context: testableContext)[1].title!)
+
+    }
+    
+    
 }
