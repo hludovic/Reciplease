@@ -29,6 +29,7 @@ class Favorite: NSManagedObject {
         self.id = recipe.id
         self.imageData = recipe.imageData
         self.imageUrl = recipe.imageUrl
+        self.calories = recipe.calories
         self.ingredients = recipe.ingredients
         self.query = recipe.query
         self.title = recipe.title

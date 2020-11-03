@@ -104,7 +104,7 @@ private extension RecipeTableViewController {
         let recipe = recipes[indexPath.row]
         cell.titleLabel?.text = recipe.title
         cell.ingredientsLabel.text = recipe.query
-        cell.likesLabel.text = "_ _ _"
+        cell.caloriesLabel.text = String(format: "%.2f", recipe.calories)
         cell.timeLabel.text = "\(recipe.duration)m"
         cell.backgroundImage.image = UIImage(named: "placeholder")
         if let image = recipe.imageData {

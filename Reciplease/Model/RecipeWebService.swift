@@ -31,8 +31,8 @@ class RecipeWebService {
                 }
                 for hit in result.hits {
                     let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
-                                    id: hit.recipe.uri, image: hit.recipe.image,
-                                    ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
+                                        id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
+                                        ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
                     recipes.append(recipe)
                 }
                 callback(recipes)
@@ -47,6 +47,7 @@ class RecipeWebService {
             struct RecipeResult: Decodable {
                 let uri: String
                 let label: String
+                let calories: Double
                 let ingredientLines: [String]
                 let totalTime: Int
                 let image: String

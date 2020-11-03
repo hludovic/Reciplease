@@ -15,6 +15,7 @@ class Recipe {
     let id: String
     private(set) var imageData: Data?
     let imageUrl: String
+    let calories: Double
     let ingredients: String
     let query: String
     let title: String
@@ -29,11 +30,12 @@ class Recipe {
         }
     }
 
-    init(directions: String, duration: Int, id: String, image: String, ingredients: [String], title: String) {
+    init(directions: String, duration: Int, id: String, image: String, calories: Double, ingredients: [String], title: String) {
         self.directions = directions
         self.duration = duration
         self.id = id
         self.imageUrl = image
+        self.calories = calories
         self.ingredients = ingredients.joined(separator: "\n- ")
         self.query = SettingService.ingredients.joined(separator: ", ")
         self.title = title
@@ -44,6 +46,7 @@ class Recipe {
         self.duration = Int(favorite.duration)
         self.id = favorite.id!
         self.imageUrl = favorite.imageUrl!
+        self.calories = favorite.calories
         self.ingredients = favorite.ingredients!
         self.query = favorite.query!
         self.title = favorite.title!

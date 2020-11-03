@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     // MARK: - IBOutlet Properties
     @IBOutlet weak var imageDetail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var goButton: UIButton!
@@ -52,7 +52,7 @@ class DetailViewController: UIViewController {
         isFavorite = recipe.isFavorite
         titleLabel.text = recipe.title
         timeLabel.text = "\(recipe.duration)m"
-        likesLabel.text = "_ _ _"
+        caloriesLabel.text = String(format: "%.2f", recipe.calories)
         ingredientsTextView.text = recipe.ingredients
         if let imageData = recipe.imageData {
             imageDetail.image = UIImage(data: imageData)
