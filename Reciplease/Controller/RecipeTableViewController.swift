@@ -91,7 +91,7 @@ extension RecipeTableViewController: UITableViewDataSource {
 // MARK: - Private Methods
 private extension RecipeTableViewController {
     func loadFavorites() {
-        let favorites = Favorite.all(context: CoreDataStack.viewContext)
+        let favorites = Favorite.all
         var tab: [Recipe] = []
         for favorite in favorites {
             let recipe = Recipe(favorite: favorite)
