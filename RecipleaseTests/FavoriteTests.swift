@@ -21,7 +21,7 @@ class FavoriteTests: XCTestCase {
         var recipes:[Recipe] = []
         for hit in jsonData!.hits {
             let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
-                              id: hit.recipe.uri, image: hit.recipe.image,
+                                id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
                               ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
             recipes.append(recipe)
         }
