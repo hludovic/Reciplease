@@ -28,7 +28,6 @@ class CoreDataStack {
     static var viewContext: NSManagedObjectContext = {
         return CoreDataStack.persistentContainer.viewContext
     }()
-    
 
     // MARK: - Core Data Saving support
 
