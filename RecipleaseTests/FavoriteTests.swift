@@ -17,7 +17,7 @@ class FavoriteTests: XCTestCase {
         let bundle = Bundle(for: FavoriteTests.self)
         let url = bundle.url(forResource: "ResultRequest", withExtension: "json")!
         let data = try? Data(contentsOf: url)
-        let jsonData = try? JSONDecoder().decode(RecipeWebService.ResultRequest.self, from: data!)
+        let jsonData = try? JSONDecoder().decode(ResultRequest.self, from: data!)
         var recipes:[Recipe] = []
         for hit in jsonData!.hits {
             let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,

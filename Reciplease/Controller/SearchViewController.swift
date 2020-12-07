@@ -19,6 +19,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - Properties
+    var webService: WebServiceable = RecipeWebService()
     var errorMessage: String? {
         didSet {
             let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)
@@ -65,7 +66,7 @@ class SearchViewController: UIViewController {
 
     @IBAction func pressSearchButton(_ sender: UIButton) {
         isLoading = true
-        RecipeWebService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
+        webService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
             self.isLoading = false
             guard let recipes = recipes else {
                 self.errorMessage = "Search could not be performed."

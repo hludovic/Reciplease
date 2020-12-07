@@ -9,12 +9,16 @@
 import Foundation
 import Alamofire
 
-class RecipeWebService {
-    private static let appKey = "_" // API KEY
-    private static let appId = "_"  // API ID
-    private static let url = "https://api.edamam.com/search"
+protocol WebServiceable {
+    func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void )
+}
 
-    static func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
+final class RecipeWebService: WebServiceable {
+    private let appKey = "_" // API KEY
+    private let appId = "_"  // API ID
+    private let url = "https://api.edamam.com/search"
+
+    func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
         guard keywords.count > 0 else {
             callback(nil)
             return
@@ -29,30 +33,37 @@ class RecipeWebService {
                     callback(nil)
                     return
                 }
-                for hit in result.hits {
-                    let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
-                                        id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
-                                        ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
-                    recipes.append(recipe)
-                }
+                recipes = resultToRecipes(result: result)
                 callback(recipes)
         }
     }
+}
 
-    struct ResultRequest: Decodable {
-        let count: Int
-        let hits: [Hit]
-        struct Hit: Decodable {
-            let recipe: RecipeResult
-            struct RecipeResult: Decodable {
-                let uri: String
-                let label: String
-                let calories: Double
-                let ingredientLines: [String]
-                let totalTime: Int
-                let image: String
-                let url: String
-            }
+struct ResultRequest: Decodable {
+    let count: Int
+    let hits: [Hit]
+    struct Hit: Decodable {
+        let recipe: RecipeResult
+        struct RecipeResult: Decodable {
+            let uri: String
+            let label: String
+            let calories: Double
+            let ingredientLines: [String]
+            let totalTime: Int
+            let image: String
+            let url: String
         }
     }
 }
+
+func resultToRecipes(result: ResultRequest) -> [Recipe] {
+    var recipes: [Recipe] = []
+    for hit in result.hits {
+        let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
+                            id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
+                            ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
+        recipes.append(recipe)
+    }
+    return recipes
+}
+
