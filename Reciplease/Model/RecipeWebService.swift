@@ -9,14 +9,13 @@
 import Foundation
 import Alamofire
 
-protocol WebServiceable {
-    func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void )
-}
+final class RecipeWebService {
+    private var session: AlamofireSession = WebServiceSession()
 
-final class RecipeWebService: WebServiceable {
-    private let appKey = "_" // API KEY
-    private let appId = "_"  // API ID
-    private let url = "https://api.edamam.com/search"
+    convenience init(session: AlamofireSession) {
+        self.init()
+        self.session = session
+    }
 
     func fetchRecipes(keywords: [String], callback: @escaping ([Recipe]?) -> Void ) {
         guard keywords.count > 0 else {
@@ -24,46 +23,30 @@ final class RecipeWebService: WebServiceable {
             return
         }
         var recipes: [Recipe] = []
-        let query: String = keywords.joined(separator: ", ")
-        let parameters: [String: String] = [ "app_key": appKey, "app_id": appId, "q": query ]
-        AF.request(url, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: ResultRequest.self) { (response) in
-                guard let result = response.value else {
-                    callback(nil)
-                    return
-                }
-                recipes = resultToRecipes(result: result)
-                callback(recipes)
+        session.fetchRecipes(keywords: keywords) { (response) in
+            guard response.response?.statusCode == 200 else {
+                callback(nil)
+                return
+            }
+            guard let result = response.value else {
+                callback(nil)
+                return
+            }
+            recipes = self.resultToRecipes(result: result)
+            callback(recipes)
         }
+    }
+    
+    private func resultToRecipes(result: ResultRequest) -> [Recipe] {
+        var recipes: [Recipe] = []
+        for hit in result.hits {
+            let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
+                                id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
+                                ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
+            recipes.append(recipe)
+        }
+        return recipes
     }
 }
 
-struct ResultRequest: Decodable {
-    let count: Int
-    let hits: [Hit]
-    struct Hit: Decodable {
-        let recipe: RecipeResult
-        struct RecipeResult: Decodable {
-            let uri: String
-            let label: String
-            let calories: Double
-            let ingredientLines: [String]
-            let totalTime: Int
-            let image: String
-            let url: String
-        }
-    }
-}
-
-func resultToRecipes(result: ResultRequest) -> [Recipe] {
-    var recipes: [Recipe] = []
-    for hit in result.hits {
-        let recipe = Recipe(directions: hit.recipe.url, duration: hit.recipe.totalTime,
-                            id: hit.recipe.uri, image: hit.recipe.image, calories: hit.recipe.calories,
-                            ingredients: hit.recipe.ingredientLines, title: hit.recipe.label)
-        recipes.append(recipe)
-    }
-    return recipes
-}
 

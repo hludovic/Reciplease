@@ -1,0 +1,6 @@
+module Pods_RecipleaseTests {
+  umbrella header "Pods-RecipleaseTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

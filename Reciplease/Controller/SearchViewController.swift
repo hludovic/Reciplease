@@ -19,7 +19,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - Properties
-    var webService: WebServiceable = RecipeWebService()
+    var webService = RecipeWebService()
     var errorMessage: String? {
         didSet {
             let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)

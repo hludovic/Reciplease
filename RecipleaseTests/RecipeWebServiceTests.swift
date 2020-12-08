@@ -7,36 +7,39 @@
 //
 
 import XCTest
+import Alamofire
 @testable import Reciplease
 
 class RecipeWebServiceTests: XCTestCase {
 
     func testWhenRequestRecipesThentThResultIsLoaded() {
-        let webService: WebServiceable = FakeRecipeWebService()
+        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.responseData, urlResponse: FakeResponseData.responseOK!)
         let ingredients: [String] = ["egg", "sugar"]
+
+        let webService = RecipeWebService(session: session)
         webService.fetchRecipes(keywords: ingredients) { (recipes) in
             XCTAssertEqual("Sugar Puffs", recipes![0].title)
             XCTAssertEqual("Sugar Cookies", recipes!.last!.title)
             XCTAssertEqual(10, recipes!.count)
         }
     }
+    
 }
 
+final class MockWebServiceSession: AlamofireSession {
+    private let dataResult: Data
+    private let urlResponse: HTTPURLResponse?
+    private let result = Result<ResultRequest, AFError>.success(FakeResponseData.jsonResponse)
 
-final class FakeRecipeWebService: WebServiceable {
-    var success: Bool = true
-    private var resultRequest: ResultRequest {
-        let bundle = Bundle(for: RecipeWebServiceTests.self)
-        let url = bundle.url(forResource: "ResultRequest", withExtension: "json")!
-        let data = try! Data(contentsOf: url)
-        return try! JSONDecoder().decode(ResultRequest.self, from: data)
-    }
-
-    func fetchRecipes(keywords: [String], callback: @escaping([Recipe]?) -> Void ) {
-        let recipes = resultToRecipes(result: resultRequest)
-        success ? callback(recipes) : callback(nil)
+    init(dataResult: Data, urlResponse: HTTPURLResponse) {
+        self.dataResult = dataResult
+        self.urlResponse = urlResponse
     }
     
-    
+    func fetchRecipes(keywords: [String], callback: @escaping (DataResponse<ResultRequest, AFError>) -> Void) {
+        let urlRequest = URLRequest(url: URL(string: "https://www.google.com/")!)
+        let dataResponse = DataResponse(request: urlRequest, response: FakeResponseData.responseOK, data: dataResult, metrics: nil, serializationDuration: TimeInterval(), result: result)
+        callback(dataResponse)
+    }
 }
 
