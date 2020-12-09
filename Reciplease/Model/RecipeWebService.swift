@@ -28,6 +28,10 @@ final class RecipeWebService {
                 callback(nil)
                 return
             }
+            guard response.error == nil else {
+                callback(nil)
+                return
+            }
             guard let result = response.value else {
                 callback(nil)
                 return

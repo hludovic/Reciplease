@@ -147,8 +147,8 @@
 				4302708B2500408C00A63AB1 /* Favorite.swift */,
 				43827CCA2501764400039B36 /* Recipe.swift */,
 				433E68CF257F4B9000CFF08E /* ResultRequest.swift */,
-				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
 				437D4D2B257F126C00977BF0 /* WebServiceSession.swift */,
+				436062DD24FF1A2A00852D2B /* RecipeWebService.swift */,
 				43879EE024FC72AC00DA5DC8 /* SettingService.swift */,
 				438FF6C524FC4BC2001F238B /* Reciplease.xcdatamodeld */,
 			);

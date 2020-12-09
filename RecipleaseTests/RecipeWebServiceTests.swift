@@ -12,8 +12,38 @@ import Alamofire
 
 class RecipeWebServiceTests: XCTestCase {
 
-    func testWhenRequestRecipesThentThResultIsLoaded() {
-        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.responseData, urlResponse: FakeResponseData.responseOK!)
+    func testFetchRecipesShouldPostFailedCallbackIfHTTPResponseFail() {
+        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.responseData, result: FakeResponseData.resultOK, urlResponse: FakeResponseData.responseKO!)
+        let ingredients: [String] = ["egg", "sugar"]
+
+        let webService = RecipeWebService(session: session)
+        webService.fetchRecipes(keywords: ingredients) { (recipes) in
+            XCTAssertNil(recipes)
+        }
+    }
+
+    func testFetchRecipesShouldPostFailedCallbackIfRequestContainsNoIngredients() {
+        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.responseData, result: FakeResponseData.resultOK, urlResponse: FakeResponseData.responseOK!)
+        let ingredients: [String] = []
+
+        let webService = RecipeWebService(session: session)
+        webService.fetchRecipes(keywords: ingredients) { (recipes) in
+            XCTAssertNil(recipes)
+        }
+    }
+
+    func testFetchRecipesShouldPostFailedCallbackIfWrongData() {
+        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.incorrectData!, result: FakeResponseData.resultKO, urlResponse: FakeResponseData.responseOK!)
+        let ingredients: [String] = ["egg", "sugar"]
+
+        let webService = RecipeWebService(session: session)
+        webService.fetchRecipes(keywords: ingredients) { (recipes) in
+            XCTAssertNil(recipes)
+        }
+    }
+
+    func testFetchRecipesShouldPostRightCallbackIfAllIsCorrect() {
+        let session: AlamofireSession = MockWebServiceSession(dataResult: FakeResponseData.responseData, result: FakeResponseData.resultOK, urlResponse: FakeResponseData.responseOK!)
         let ingredients: [String] = ["egg", "sugar"]
 
         let webService = RecipeWebService(session: session)
@@ -23,22 +53,22 @@ class RecipeWebServiceTests: XCTestCase {
             XCTAssertEqual(10, recipes!.count)
         }
     }
-    
 }
 
 final class MockWebServiceSession: AlamofireSession {
     private let dataResult: Data
     private let urlResponse: HTTPURLResponse?
-    private let result = Result<ResultRequest, AFError>.success(FakeResponseData.jsonResponse)
-
-    init(dataResult: Data, urlResponse: HTTPURLResponse) {
+    private let result: Result<ResultRequest, AFError>
+    
+    init(dataResult: Data, result: Result<ResultRequest, AFError>, urlResponse: HTTPURLResponse) {
         self.dataResult = dataResult
         self.urlResponse = urlResponse
+        self.result = result
     }
-    
+
     func fetchRecipes(keywords: [String], callback: @escaping (DataResponse<ResultRequest, AFError>) -> Void) {
-        let urlRequest = URLRequest(url: URL(string: "https://www.google.com/")!)
-        let dataResponse = DataResponse(request: urlRequest, response: FakeResponseData.responseOK, data: dataResult, metrics: nil, serializationDuration: TimeInterval(), result: result)
+        let urlRequest = URLRequest(url: URL(string: "https://google.fr")!)
+        let dataResponse = DataResponse(request: urlRequest, response: urlResponse, data: dataResult, metrics: nil, serializationDuration: TimeInterval(), result: result)
         callback(dataResponse)
     }
 }
