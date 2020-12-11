@@ -79,7 +79,7 @@ class DetailViewController: UIViewController {
             CoreDataStack.saveContext()
             isFavorite = true
         } else {
-            guard Favorite.remove(id: recipe.id) else {
+            guard Favorite.remove(id: recipe.id, context: CoreDataStack.viewContext) else {
                 errorMessage = "The recipe could not be removed from favorites."
                 return
             }

@@ -72,7 +72,7 @@ extension RecipeTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard mode == .favorite else { return }
         if editingStyle == .delete {
-            guard Favorite.remove(id: recipes[indexPath.row].id) else { return }
+            guard Favorite.remove(id: recipes[indexPath.row].id, context: CoreDataStack.viewContext) else { return }
             recipes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -91,7 +91,7 @@ extension RecipeTableViewController: UITableViewDataSource {
 // MARK: - Private Methods
 private extension RecipeTableViewController {
     func loadFavorites() {
-        let favorites = Favorite.all
+        let favorites = Favorite.all(context: CoreDataStack.viewContext)
         var tab: [Recipe] = []
         for favorite in favorites {
             let recipe = Recipe(favorite: favorite)
